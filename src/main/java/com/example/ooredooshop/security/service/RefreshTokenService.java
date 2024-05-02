@@ -1,8 +1,8 @@
-package com.example.ooredooshop.services;
+package com.example.ooredooshop.security.service;
 
 
-import com.example.ooredooshop.models.RefreshToken;
-import com.example.ooredooshop.repositories.RefreshTokenRepository;
+import com.example.ooredooshop.security.jwt.RefreshToken;
+import com.example.ooredooshop.security.jwt.RefreshTokenRepository;
 import com.example.ooredooshop.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

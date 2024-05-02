@@ -1,4 +1,4 @@
-package com.example.ooredooshop.dtos;
+package com.example.ooredooshop.payload.request;
 
 import com.example.ooredooshop.models.UserRole;
 import lombok.AllArgsConstructor;

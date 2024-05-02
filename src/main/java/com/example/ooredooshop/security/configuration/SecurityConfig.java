@@ -1,4 +1,4 @@
-package com.example.ooredooshop.configuration;
+package com.example.ooredooshop.security.configuration;
 
 import com.example.ooredooshop.helpers.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,9 +41,9 @@ public class SecurityConfig {
         return http.
                 csrf((csrf)->csrf.disable())
                 .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/api/v1/save").permitAll()
-                        .requestMatchers("/api/v1/login").permitAll()
-                        .requestMatchers("/api/v1/refreshToken").permitAll()
+                        .requestMatchers("/api/auth/save").permitAll()
+                        .requestMatchers("/api/auth/login").permitAll()
+                        .requestMatchers("/api/auth/refreshToken").permitAll()
                         .requestMatchers("/error/*").permitAll()
                         //.requestMatchers("/**").permitAll()
                         .anyRequest().authenticated())

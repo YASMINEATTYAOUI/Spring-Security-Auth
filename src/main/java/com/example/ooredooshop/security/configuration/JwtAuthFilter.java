@@ -1,8 +1,8 @@
-package com.example.ooredooshop.configuration;
+package com.example.ooredooshop.security.configuration;
 
 
 import com.example.ooredooshop.helpers.UserDetailsServiceImpl;
-import com.example.ooredooshop.services.JwtService;
+import com.example.ooredooshop.security.service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

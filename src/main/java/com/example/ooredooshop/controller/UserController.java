@@ -1,9 +1,13 @@
 package com.example.ooredooshop.controller;
 
-import com.example.ooredooshop.dtos.*;
-import com.example.ooredooshop.models.RefreshToken;
-import com.example.ooredooshop.services.JwtService;
-import com.example.ooredooshop.services.RefreshTokenService;
+import com.example.ooredooshop.security.jwt.RefreshToken;
+import com.example.ooredooshop.payload.request.AuthRequestDTO;
+import com.example.ooredooshop.payload.request.RefreshTokenRequestDTO;
+import com.example.ooredooshop.payload.request.UserRequest;
+import com.example.ooredooshop.payload.response.JwtResponseDTO;
+import com.example.ooredooshop.payload.response.UserResponse;
+import com.example.ooredooshop.security.service.JwtService;
+import com.example.ooredooshop.security.service.RefreshTokenService;
 import com.example.ooredooshop.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +22,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/auth")
 public class UserController {
 
     @Autowired

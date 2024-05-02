@@ -1,8 +1,7 @@
-package com.example.ooredooshop.repositories;
+package com.example.ooredooshop.security.jwt;
 
 
 import com.example.ooredooshop.helpers.RefreshableCRUDRepository;
-import com.example.ooredooshop.models.RefreshToken;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;

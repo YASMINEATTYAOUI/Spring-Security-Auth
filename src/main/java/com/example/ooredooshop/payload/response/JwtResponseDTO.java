@@ -1,6 +1,7 @@
-package com.example.ooredooshop.dtos;
+package com.example.ooredooshop.payload.response;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +14,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RefreshTokenRequestDTO {
+@Builder
+public class JwtResponseDTO {
+
+    private String accessToken;
     private String token;
 }

@@ -2,8 +2,8 @@ package com.example.ooredooshop.services;
 
 
 
-import com.example.ooredooshop.dtos.UserRequest;
-import com.example.ooredooshop.dtos.UserResponse;
+import com.example.ooredooshop.payload.request.UserRequest;
+import com.example.ooredooshop.payload.response.UserResponse;
 
 import java.util.List;
 

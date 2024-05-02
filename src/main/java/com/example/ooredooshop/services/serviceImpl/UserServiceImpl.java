@@ -1,10 +1,11 @@
-package com.example.ooredooshop.services;
+package com.example.ooredooshop.services.serviceImpl;
 
 
-import com.example.ooredooshop.dtos.UserRequest;
-import com.example.ooredooshop.dtos.UserResponse;
+import com.example.ooredooshop.payload.request.UserRequest;
+import com.example.ooredooshop.payload.response.UserResponse;
 import com.example.ooredooshop.models.UserInfo;
 import com.example.ooredooshop.repositories.UserRepository;
+import com.example.ooredooshop.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,5 +1,6 @@
-package com.example.ooredooshop.models;
+package com.example.ooredooshop.security.jwt;
 
+import com.example.ooredooshop.models.UserInfo;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
