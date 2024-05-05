@@ -15,7 +15,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @AllArgsConstructor
-@RequestMapping("/privileges")
+@RequestMapping("/api/privileges")
 public class PrivilegeController {
     private final PrivilegeService privilegeService;
 
