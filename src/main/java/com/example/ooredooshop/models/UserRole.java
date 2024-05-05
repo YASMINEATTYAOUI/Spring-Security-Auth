@@ -6,6 +6,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+
+import java.util.Date;
 
 @Entity
 @Data
@@ -20,5 +26,14 @@ public class UserRole {
     @Column(name = "ID")
     private long id;
     private String name;
+
+    @CreatedDate
+    private Date creationDate;
+    @CreatedBy
+    private Long creatorId;
+    @LastModifiedDate
+    private Date lastModifiedDate;
+    @LastModifiedBy
+    private String lastModifierId;
 
 }
