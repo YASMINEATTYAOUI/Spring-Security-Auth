@@ -29,5 +29,8 @@ public class UserInfo {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<UserRole> roles = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Product> products = new HashSet<>();
+
 
 }
