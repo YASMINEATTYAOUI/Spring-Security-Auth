@@ -6,7 +6,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,8 +29,20 @@ public class UserInfo {
     @Column(name = "ID")
     private long id;
     private String username;
+    private String fullName;
+    private String email;
+
     @JsonIgnore
     private String password;
+    @CreatedDate
+    private Date creationDate;
+    @CreatedBy
+    private Long creatorId;
+    @LastModifiedDate
+    private Date lastModifiedDate;
+    @LastModifiedBy
+    private String lastModifierId;
+
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<UserRole> roles = new HashSet<>();
 

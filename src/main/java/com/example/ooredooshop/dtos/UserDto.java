@@ -13,13 +13,13 @@ import java.util.Date;
 public class UserDto {
 
     private Long id;
-    private Date creationDate;
-    private Date lastModifiedDate;
-
     private  String username;
     private String fullName;
-    private Integer phoneNumber;
     private String email;
+    private Integer phoneNumber;
     private String password;
+
+    private Date creationDate;
+    private Date lastModifiedDate;
 
 }
