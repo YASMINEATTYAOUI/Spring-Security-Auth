@@ -11,7 +11,8 @@ public interface RoleService {
     UserRole updateRole(UserRole role);
     UserRole getRoleById(Long id);
 
-    Page<UserRole> getAllRolesSortedByCreationDate(Pageable pageable);
+
+    List<UserRole> getAllRolesSortedByCreationDate();
     Page<UserRole> getAllRolesByCreatorIdSortedByCreationDate(Long creatorId, String name, Pageable pageable);
     Page<UserRole> searchRolesByName(String keyword, Pageable pageable);
 

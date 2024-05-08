@@ -52,9 +52,9 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Page<UserRole> getAllRolesSortedByCreationDate(Pageable pageable) {
-         logger.info("Retrieving All Roles (Sorted)");
-        return roleRepository.findAllByOrderByCreationDateDesc(pageable);
+    public List<UserRole> getAllRolesSortedByCreationDate() {
+        logger.info("Retrieving All Roles (Sorted)");
+        return roleRepository.findAllByOrderByCreationDateDesc();
     }
 
     @Override

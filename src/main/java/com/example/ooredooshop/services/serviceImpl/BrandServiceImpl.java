@@ -50,9 +50,9 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public Page<Brand> getAllBrandsSortedByCreationDate(Pageable pageable) {
+    public List<Brand> getAllBrandsSortedByCreationDate() {
         logger.info("Retrieving All Brands (Sorted)");
-        return brandRepository.findAllByOrderByCreationDateDesc(pageable);
+        return brandRepository.findAllByOrderByCreationDateDesc();
     }
 
     @Override

@@ -6,10 +6,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface RoleRepository extends JpaRepository<UserRole,Long> {
 
-    Page<UserRole> findAllByOrderByCreationDateDesc(Pageable pageable);
+    List<UserRole> findAllByOrderByCreationDateDesc();
     Page<UserRole> findByNameContainingIgnoreCaseOrderByCreationDateDesc(String name, Pageable pageable);
     Page<UserRole> findByCreatorIdOrderByCreationDate(Long creatorId, Pageable pageable);
     Page<UserRole> findByCreatorIdAndNameContainingIgnoreCaseOrderByCreationDate(Long creatorId, String name, Pageable pageable);

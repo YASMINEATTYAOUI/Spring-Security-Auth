@@ -45,8 +45,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/login").permitAll()
                         .requestMatchers("/api/auth/refreshToken").permitAll()
                         .requestMatchers("/error/*").permitAll()
-                        //.requestMatchers("/**").permitAll()
-                        .anyRequest().authenticated())
+                        .requestMatchers("/**").permitAll())
+                        //.anyRequest().authenticated())
 
                 .sessionManagement((sessionManagement)-> sessionManagement
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))

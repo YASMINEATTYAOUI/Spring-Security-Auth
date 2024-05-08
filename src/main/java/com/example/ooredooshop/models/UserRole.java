@@ -26,7 +26,7 @@ public class UserRole {
     @Column(name = "ID")
     private long id;
     private String name;
-
+    private String description;
     @CreatedDate
     private Date creationDate;
     @CreatedBy

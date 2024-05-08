@@ -11,7 +11,7 @@ public interface BrandService {
     void createBrand(Brand brandRequest);
     Brand updateBrand(Brand brand);
     Brand getBrandById(Long id);
-    Page<Brand> getAllBrandsSortedByCreationDate(Pageable pageable);
+    List<Brand> getAllBrandsSortedByCreationDate();
     Page<Brand> getAllBrandsByCreatorIdSortedByCreationDate(Long creatorId, String name, Pageable pageable);
     Page<Brand> getBrandsByCategory(Category category, Pageable pageable);
 

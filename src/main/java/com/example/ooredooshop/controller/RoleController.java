@@ -33,8 +33,8 @@ public class RoleController {
 
     @GetMapping("/sorted")
     @ResponseStatus(HttpStatus.OK)
-    public Page<UserRole> getAllRoles(Pageable pageable) {
-        return roleService.getAllRolesSortedByCreationDate(pageable);
+    public List<UserRole> getAllRoles() {
+        return roleService.getAllRolesSortedByCreationDate();
     }
 
     @GetMapping("/{id}")

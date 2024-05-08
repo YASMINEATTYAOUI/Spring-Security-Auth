@@ -35,8 +35,8 @@ public class BrandController {
 
     @GetMapping("/sorted")
     @ResponseStatus(HttpStatus.OK)
-    public Page<Brand> getAllBrands(Pageable pageable) {
-        return brandService.getAllBrandsSortedByCreationDate(pageable);
+    public List<Brand> getAllBrands() {
+        return brandService.getAllBrandsSortedByCreationDate();
     }
 
     @GetMapping("/{id}")
