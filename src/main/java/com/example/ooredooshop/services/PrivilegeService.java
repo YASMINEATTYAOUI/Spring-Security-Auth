@@ -10,7 +10,7 @@ public interface PrivilegeService {
     void createPrivilege(Privilege privilege);
     Privilege updatePrivilege(Privilege privilege);
     Privilege getPrivilegeById(Long id);
-    Page< Privilege> getAllPrivilegesSortedByCreationDate(Pageable pageable);
+    List< Privilege> getAllPrivilegesSortedByCreationDate();
     Page< Privilege> getAllPrivilegesByCreatorIdSortedByCreationDate(Long creatorId, String name, Pageable pageable);
     Page< Privilege> searchPrivilegesByName(String keyword, Pageable pageable);
 

@@ -6,9 +6,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface PrivilegeRepository extends JpaRepository<Privilege,Long> {
-    Page<Privilege> findAllByOrderByCreationDateDesc(Pageable pageable);
+    List<Privilege> findAllByOrderByCreationDateDesc();
     Page<Privilege> findByNameContainingIgnoreCaseOrderByCreationDateDesc(String name, Pageable pageable);
     Page<Privilege> findByCreatorIdOrderByCreationDate(Long creatorId, Pageable pageable);
     Page<Privilege> findByCreatorIdAndNameContainingIgnoreCaseOrderByCreationDate(Long creatorId, String name, Pageable pageable);

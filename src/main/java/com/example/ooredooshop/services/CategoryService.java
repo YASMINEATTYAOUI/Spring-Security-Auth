@@ -12,7 +12,7 @@ public interface CategoryService {
     Category updateCategory(Category category);
 
     Category getCategoryById(Long id);
-    Page<Category> getAllCategoriesSortedByCreationDate(Pageable pageable);
+    List<Category> getAllCategoriesSortedByCreationDate();
     Page<Category> getAllCategoriesByCreatorIdSortedByCreationDate(Long creatorId, String name, Pageable pageable);
 
     //Page<Category> getCategoriesByBrand(Brand brand, Pageable pageable);

@@ -50,9 +50,9 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Page<Category> getAllCategoriesSortedByCreationDate(Pageable pageable) {
+    public List<Category> getAllCategoriesSortedByCreationDate() {
         logger.info("Retrieving All Brands (Sorted)");
-        return categoryRepository.findAllByOrderByCreationDateDesc(pageable);
+        return categoryRepository.findAllByOrderByCreationDateDesc();
     }
 
     @Override

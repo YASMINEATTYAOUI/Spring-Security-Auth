@@ -12,12 +12,12 @@ import java.util.List;
 @Repository
 public interface BrandRepository extends JpaRepository<Brand,Long> {
     List<Brand> findAllByOrderByCreationDateDesc();
-    Page<Brand> findByNameContainingIgnoreCaseOrderByCreationDateDesc(String name, Pageable pageable);
-    Page<Brand> findByCreatorIdOrderByCreationDate(Long creatorId, Pageable pageable);
-    Page<Brand> findByCreatorIdAndNameContainingIgnoreCaseOrderByCreationDate(Long creatorId, String name, Pageable pageable);
+    List<Brand> findByNameContainingIgnoreCaseOrderByCreationDateDesc(String name);
+    List<Brand> findByCreatorIdOrderByCreationDate(Long creatorId);
+    List<Brand> findByCreatorIdAndNameContainingIgnoreCaseOrderByCreationDate(Long creatorId, String name);
 
-    //Page<Brand> findAllByCategoryOrderByCreationDateDesc(Category category, Pageable pageable);
+    //Page<Brand> findAllByCategoryOrderByCreationDateDesc(Category category );
 
-    //Page<Brand> findAllByCategoryAndNameContainingIgnoreCaseOrderByCreationDateDesc(Category category, String name, Pageable pageable);
+    //Page<Brand> findAllByCategoryAndNameContainingIgnoreCaseOrderByCreationDateDesc(Category category, String name);
 
 }

@@ -17,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  * @author mhmdz
@@ -47,6 +48,15 @@ public class SecurityConfig {
                         .requestMatchers("/error/*").permitAll()
                         .requestMatchers("/**").permitAll())
                         //.anyRequest().authenticated())
+
+                .formLogin(form -> form
+                        .loginProcessingUrl("/api/auth/login")
+                        .defaultSuccessUrl("/api/auth/users")
+                        .permitAll())
+
+                .logout(logout -> logout
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/api/auth/logout"))
+                        .permitAll())
 
                 .sessionManagement((sessionManagement)-> sessionManagement
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))

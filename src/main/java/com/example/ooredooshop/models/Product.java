@@ -39,8 +39,8 @@ public class Product {
     @LastModifiedBy
     private  Long lastModifierId;
 
-    @ManyToOne
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE )
     @JoinColumn(name = "category_id")
     private Category category;
 

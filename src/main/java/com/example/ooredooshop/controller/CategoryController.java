@@ -33,8 +33,8 @@ public class CategoryController {
 
     @GetMapping("/sorted")
     @ResponseStatus(HttpStatus.OK)
-    public Page<Category> getAllCtegories(Pageable pageable) {
-        return categoryService.getAllCategoriesSortedByCreationDate(pageable);
+    public List<Category> getAllCtegories() {
+        return categoryService.getAllCategoriesSortedByCreationDate();
     }
 
     @GetMapping("/{id}")

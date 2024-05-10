@@ -51,9 +51,9 @@ public class PrivilegeServiceImpl implements PrivilegeService {
     }
 
     @Override
-    public Page<Privilege> getAllPrivilegesSortedByCreationDate(Pageable pageable) {
+    public List<Privilege> getAllPrivilegesSortedByCreationDate() {
         logger.info("Retrieving All Privileges (Sorted)");
-        return privilegeRepository.findAllByOrderByCreationDateDesc(pageable);
+        return privilegeRepository.findAllByOrderByCreationDateDesc();
     }
 
     @Override

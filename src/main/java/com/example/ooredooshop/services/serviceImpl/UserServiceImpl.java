@@ -16,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -66,6 +67,7 @@ public class UserServiceImpl implements UserService {
             }
         } else {
 //            user.setCreatedBy(currentUser);
+            user.setCreationDate(new Date());
             savedUser = userRepository.save(user);
         }
         userRepository.refresh(savedUser);

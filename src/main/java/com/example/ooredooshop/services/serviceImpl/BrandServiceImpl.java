@@ -8,9 +8,13 @@ import com.example.ooredooshop.services.BrandService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -56,28 +60,28 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public Page<Brand>  getAllBrandsByCreatorIdSortedByCreationDate(Long creatorId, String name, Pageable pageable) {
+    public List<Brand>  getAllBrandsByCreatorIdSortedByCreationDate(Long creatorId, String name) {
 
         if(name != null){
-            return brandRepository.findByCreatorIdAndNameContainingIgnoreCaseOrderByCreationDate(creatorId, name, pageable);
+            return brandRepository.findByCreatorIdAndNameContainingIgnoreCaseOrderByCreationDate(creatorId, name);
         }
-        return brandRepository.findByCreatorIdOrderByCreationDate(creatorId, pageable);
+        return brandRepository.findByCreatorIdOrderByCreationDate(creatorId);
     }
 
      @Override
-     public Page<Brand> getBrandsByCategory(Category category, Pageable pageable) {
+     public List<Brand> getBrandsByCategory(Category category) {
      return null; //brandRepository.findAllByCategoryOrderByCreationDateDesc(category,pageable);
      }
 
      @Override
-     public Page<Brand> getBrandsByCategoryAndName(Category category, String name, Pageable pageable) {
+     public List<Brand> getBrandsByCategoryAndName(Category category, String name) {
          logger.info("Retrieving All Brands By Category And Name ");
-     return null; //brandRepository.findAllByCategoryAndNameContainingIgnoreCaseOrderByCreationDateDesc(category,name,pageable);
+     return null; //brandRepository.findAllByCategoryAndNameContainingIgnoreCaseOrderByCreationDateDesc(category,name);
      }
 
     @Override
-    public Page<Brand> searchBrandsByName(String keyword, Pageable pageable) {
-        return brandRepository.findByNameContainingIgnoreCaseOrderByCreationDateDesc(keyword, pageable);
+    public List<Brand> searchBrandsByName(String keyword) {
+        return brandRepository.findByNameContainingIgnoreCaseOrderByCreationDateDesc(keyword);
     }
 
     @Override
@@ -99,4 +103,6 @@ public class BrandServiceImpl implements BrandService {
     public long countBrands() {
         return brandRepository.count();
     }
+
+
 }

@@ -62,35 +62,35 @@ public class BrandController {
     }
 
     @GetMapping("/search")
-    public Page<Brand> searchBrandsByKeyword(
+    public List<Brand> searchBrandsByKeyword(
             @RequestParam String keyword,
             Pageable pageable
     ) {
-        return brandService.searchBrandsByName(keyword, pageable);
+        return brandService.searchBrandsByName(keyword);
     }
 
      @GetMapping("/category")
-     public Page<Brand> searchBrandsByCategory(
+     public List<Brand> searchBrandsByCategory(
      @RequestParam Category category,
      Pageable pageable
      ) {
-     return brandService.getBrandsByCategory(category, pageable);
+     return brandService.getBrandsByCategory(category);
      }
 
      @GetMapping("/category/reference")
-     public Page<Brand> searchBrandsByCategoryAndReference(
+     public List<Brand> searchBrandsByCategoryAndReference(
      @RequestParam Category category, String reference,
      Pageable pageable
      ) {
-     return brandService.getBrandsByCategoryAndName(category,reference, pageable);
+     return brandService.getBrandsByCategoryAndName(category,reference);
      }
 
 
     @GetMapping("/creatorId/{creatorId}")
-    public Page<Brand> getAllBrandsByCreatorIdSortedByCreationDate(@PathVariable Long creatorId,
+    public List<Brand> getAllBrandsByCreatorIdSortedByCreationDate(@PathVariable Long creatorId,
                                                                       @RequestParam(name = "reference", required = false) String reference,
                                                                       Pageable pageable){
-        return brandService.getAllBrandsByCreatorIdSortedByCreationDate(creatorId, reference, pageable);
+        return brandService.getAllBrandsByCreatorIdSortedByCreationDate(creatorId, reference);
     }
 
     @GetMapping("/count")

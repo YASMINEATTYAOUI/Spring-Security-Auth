@@ -33,8 +33,8 @@ public class PrivilegeController {
 
     @GetMapping("/sorted")
     @ResponseStatus(HttpStatus.OK)
-    public Page<Privilege> getAllPrivileges(Pageable pageable) {
-        return privilegeService.getAllPrivilegesSortedByCreationDate(pageable);
+    public List<Privilege> getAllPrivileges() {
+        return privilegeService.getAllPrivilegesSortedByCreationDate();
     }
 
     @GetMapping("/{id}")

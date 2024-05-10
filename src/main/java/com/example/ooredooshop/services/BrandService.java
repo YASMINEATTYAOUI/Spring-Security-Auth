@@ -4,22 +4,25 @@ import com.example.ooredooshop.models.Brand;
 import com.example.ooredooshop.models.Category;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface BrandService {
-    void createBrand(Brand brandRequest);
+    void createBrand(Brand brand);
     Brand updateBrand(Brand brand);
     Brand getBrandById(Long id);
     List<Brand> getAllBrandsSortedByCreationDate();
-    Page<Brand> getAllBrandsByCreatorIdSortedByCreationDate(Long creatorId, String name, Pageable pageable);
-    Page<Brand> getBrandsByCategory(Category category, Pageable pageable);
+    List<Brand> getAllBrandsByCreatorIdSortedByCreationDate(Long creatorId, String name);
+    List<Brand> getBrandsByCategory(Category category);
 
-    Page<Brand> getBrandsByCategoryAndName(Category category, String name, Pageable pageable);
-    Page<Brand> searchBrandsByName(String keyword, Pageable pageable);
+    List<Brand> getBrandsByCategoryAndName(Category category, String name);
+    List<Brand> searchBrandsByName(String keyword);
 
     void deleteBrandById(Long id);
     void deleteMultipleBrandsByIds(List<Long> ids);
 
     long countBrands();
 }
+
