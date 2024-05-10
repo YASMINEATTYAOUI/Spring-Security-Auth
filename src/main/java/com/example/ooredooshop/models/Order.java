@@ -21,7 +21,11 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Integer nbProduct;
+    private Integer numberOrder;
+    private Integer articlesNumber;
+    private Float totalPrice;
+    private String orderStatus;
+    private String deliveryType;
     @CreatedDate
     private Date creationDate;
     @CreatedBy

@@ -2,11 +2,11 @@ package com.example.ooredooshop.controller;
 
 
 import com.example.ooredooshop.exceptions.NotFoundException;
+import com.example.ooredooshop.models.Order;
 import com.example.ooredooshop.services.OrderService;
-import jakarta.persistence.criteria.Order;
+
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +16,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @AllArgsConstructor
-@RequestMapping("/orderss")
+@RequestMapping("/api/orders")
 public class OrderController {
     private final OrderService orderService;
 

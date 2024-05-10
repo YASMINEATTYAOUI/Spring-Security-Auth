@@ -7,6 +7,8 @@ import com.example.ooredooshop.repositories.OrderRepository;
 import com.example.ooredooshop.services.OrderService;
 import lombok.RequiredArgsConstructor;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,20 +17,20 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
-
+    private static final Logger logger = LoggerFactory.getLogger(RoleServiceImpl.class);
     @Override
     public Order getOrderById(Long id) {
 
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Order with ID " + id + " not found"));
-        // log.info("Order {} is fetched", order.getId());
+        logger.info("Order {} is fetched", order.getId());
 
         return order;
     }
 
     @Override
     public List<Order> getAllOrdersSortedByCreationDate() {
-        // log.info("Retrieving All Order (Sorted)");
+        logger.info("Retrieving All Order (Sorted)");
         return orderRepository.findAllByOrderByCreationDateDesc();
     }
 
@@ -43,14 +45,14 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Order not found with ID: " + id));
         orderRepository.delete(order);
-        //log.info("Order {} is deleted", order.getId());
+        logger.info("Order {} is deleted", order.getId());
 
     }
 
     @Override
     public void deleteMultipleOrdersByIds(List<Long> ids) {
 
-        // log.info("Batch deletion of orders with IDs: {}", ids);
+        logger.info("Batch deletion of orders with IDs: {}", ids);
         orderRepository.deleteAllById(ids);
     }
     @Override
