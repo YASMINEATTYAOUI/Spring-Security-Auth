@@ -21,9 +21,11 @@ public class CategoryServiceImpl implements CategoryService {
     private static final Logger logger = LoggerFactory.getLogger(RoleServiceImpl.class);
 
     @Override
-    public void createCategory(Category category) {
-         categoryRepository.save(category);
+    public Category createCategory(Category category) {
+        System.out.println(category);
+         Category c=categoryRepository.save(category);
         logger.info("Category {} is saved", category.getId());
+        return c;
     }
 
     @Override
