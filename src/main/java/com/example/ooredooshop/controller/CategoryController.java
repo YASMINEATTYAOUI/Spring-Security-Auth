@@ -62,35 +62,29 @@ public class CategoryController {
     }
 
     @GetMapping("/search")
-    public Page<Category> searchCategoriesByKeyword(
+    public List<Category> searchCategoriesByKeyword(
             @RequestParam String keyword,
             Pageable pageable
     ) {
-        return categoryService.searchCategoriesByName(keyword, pageable);
+        return categoryService.searchCategoriesByName(keyword);
     }
 /*
     @GetMapping("/category")
-    public Page<Category> searchCategoriesByBrand(
-            @RequestParam Brand brand,
-            Pageable pageable
-    ) {
-        return categoryService.getCategoriesByBrand(brand, pageable);
+    public List<Category> searchCategoriesByBrand( @RequestParam Brand brand) {
+        return categoryService.getCategoriesByBrand(brand);
     }
 
     @GetMapping("/category/reference")
-    public Page<Category> searchCategoriesByBrandAndName(
-            @RequestParam Brand brand, String reference,
-            Pageable pageable
-    ) {
-        return categoryService.getCategoriesByBrandAndName(brand,reference, pageable);
+    public List<Category> searchCategoriesByBrandAndName(
+            @RequestParam Brand brand, String reference,) {
+        return categoryService.getCategoriesByBrandAndName(brand,reference);
     }
 */
 
     @GetMapping("/creatorId/{creatorId}")
-    public Page<Category> getAllCategoriesByCreatorIdSortedByCreationDate(@PathVariable Long creatorId,
-                                                                   @RequestParam(name = "reference", required = false) String reference,
-                                                                   Pageable pageable){
-        return categoryService.getAllCategoriesByCreatorIdSortedByCreationDate(creatorId, reference, pageable);
+    public List<Category> getAllCategoriesByCreatorIdSortedByCreationDate(@PathVariable Long creatorId,
+                                                                   @RequestParam(name = "reference", required = false) String reference){
+        return categoryService.getAllCategoriesByCreatorIdSortedByCreationDate(creatorId, reference);
     }
 
     @GetMapping("/count")

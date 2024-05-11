@@ -18,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
-    private static final Logger logger = LoggerFactory.getLogger(RoleServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(CategoryServiceImpl.class);
 
     @Override
     public Category createCategory(Category category) {
@@ -58,30 +58,30 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Page<Category>  getAllCategoriesByCreatorIdSortedByCreationDate(Long creatorId, String name, Pageable pageable) {
+    public List<Category>  getAllCategoriesByCreatorIdSortedByCreationDate(Long creatorId, String name) {
 
         if(name != null){
-            return categoryRepository.findByCreatorIdAndNameContainingIgnoreCaseOrderByCreationDate(creatorId, name, pageable);
+            return categoryRepository.findByCreatorIdAndNameContainingIgnoreCaseOrderByCreationDate(creatorId, name);
         }
-        return categoryRepository.findByCreatorIdOrderByCreationDate(creatorId, pageable);
+        return categoryRepository.findByCreatorIdOrderByCreationDate(creatorId);
     }
 /*
     @Override
-    public Page<Category> getCategoriesByBrand(Brand brand, Pageable pageable) {
-        return categoryRepository.findByBrandOrderByCreationDateDesc(brand,pageable);
+    public List<Category> getCategoriesByBrand(Brand brand) {
+        return categoryRepository.findByBrandOrderByCreationDateDesc(brand);
     }
 
     @Override
-    public Page<Category> getCategoriesByBrandAndName(Brand brand, String name, Pageable pageable) {
+    public List<Category> getCategoriesByBrandAndName(Brand brand, String name) {
         logger.info("Retrieving All Categories By Brand And Name ");
-        return categoryRepository.findByBrandAndNameContainingIgnoreCaseOrderByCreationDateDesc(brand,name,pageable);
+        return categoryRepository.findByBrandAndNameContainingIgnoreCaseOrderByCreationDateDesc(brand,name);
     }
 
  */
 
     @Override
-    public Page<Category> searchCategoriesByName(String keyword, Pageable pageable) {
-        return categoryRepository.findByNameContainingIgnoreCaseOrderByCreationDateDesc(keyword, pageable);
+    public List<Category> searchCategoriesByName(String keyword) {
+        return categoryRepository.findByNameContainingIgnoreCaseOrderByCreationDateDesc(keyword);
     }
 
     @Override

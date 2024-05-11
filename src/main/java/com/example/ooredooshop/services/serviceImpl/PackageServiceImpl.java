@@ -5,6 +5,8 @@ import com.example.ooredooshop.repositories.PackageRepository;
 import com.example.ooredooshop.services.PackageService;
 import lombok.RequiredArgsConstructor;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +16,7 @@ import java.util.List;
 public class PackageServiceImpl implements PackageService {
 
     private final PackageRepository packageRepository;
+    private static final Logger logger = LoggerFactory.getLogger(PackageServiceImpl.class);
     public void createPackage(Package aPackage){
         packageRepository.save(aPackage);
     }
@@ -24,7 +27,7 @@ public class PackageServiceImpl implements PackageService {
     public Package getPackageById(Long id){
         Package aPackage = packageRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Package with ID " + id + " not found"));
-        // log.info("Package {} is fetched", package.getId());
+        //logger.info("Package {} is fetched",aPackage.getId());
 
         return aPackage;
 

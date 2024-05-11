@@ -18,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PrivilegeServiceImpl implements PrivilegeService {
     private final PrivilegeRepository privilegeRepository;
-    private static final Logger logger = LoggerFactory.getLogger(RoleServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(PrivilegeServiceImpl.class);
 
     @Override
     public void createPrivilege(Privilege privilege) {

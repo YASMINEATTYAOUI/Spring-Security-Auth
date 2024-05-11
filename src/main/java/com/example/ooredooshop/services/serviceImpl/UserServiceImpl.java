@@ -8,6 +8,8 @@ import com.example.ooredooshop.repositories.UserRepository;
 import com.example.ooredooshop.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,7 +26,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserRepository userRepository;
-
+    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
     ModelMapper modelMapper = new ModelMapper();
 
 
