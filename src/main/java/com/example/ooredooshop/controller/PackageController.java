@@ -3,8 +3,7 @@ package com.example.ooredooshop.controller;
 import com.example.ooredooshop.exceptions.NotFoundException;
 import com.example.ooredooshop.services.PackageService;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.example.ooredooshop.models.Package;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -62,9 +61,7 @@ public class PackageController {
 
     @GetMapping("/search")
     public List<Package> searchPackagesByKeyword(
-            @RequestParam String keyword,
-            Pageable pageable
-    ) {
+            @RequestParam String keyword) {
         return packageService.searchPackagesByReference(keyword);
     }
 

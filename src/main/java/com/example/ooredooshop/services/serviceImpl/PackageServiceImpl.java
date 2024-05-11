@@ -1,5 +1,6 @@
 package com.example.ooredooshop.services.serviceImpl;
 
+import com.example.ooredooshop.models.Package;
 import com.example.ooredooshop.exceptions.NotFoundException;
 import com.example.ooredooshop.repositories.PackageRepository;
 import com.example.ooredooshop.services.PackageService;

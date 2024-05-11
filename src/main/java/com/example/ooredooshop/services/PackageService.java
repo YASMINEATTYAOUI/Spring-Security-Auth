@@ -1,7 +1,6 @@
 package com.example.ooredooshop.services;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.example.ooredooshop.models.Package;
 
 import java.util.List;
 
