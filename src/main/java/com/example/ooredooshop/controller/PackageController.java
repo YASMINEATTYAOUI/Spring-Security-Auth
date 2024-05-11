@@ -13,7 +13,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @AllArgsConstructor
-@RequestMapping("/packages")
+@RequestMapping("/api/packages")
 public class PackageController {
 
     private final PackageService packageService;
