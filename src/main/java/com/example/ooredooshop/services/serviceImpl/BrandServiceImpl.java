@@ -8,14 +8,14 @@ import com.example.ooredooshop.services.BrandService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+
 import org.springframework.stereotype.Service;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 @Service
@@ -23,6 +23,39 @@ import java.util.List;
 public class BrandServiceImpl implements BrandService {
     private final BrandRepository brandRepository;
     private static final Logger logger = LoggerFactory.getLogger(BrandServiceImpl.class);
+
+    //new methode (save image)
+    public void saveBrand(MultipartFile file, String name) {
+        Brand brand = new Brand();
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        if (fileName.contains("..")) {
+            System.out.println("not a valid file");
+        }
+        try {
+            brand.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        brand.setName(name);
+
+        brandRepository.save(brand);
+    }
+
+    public void changeBrandName(Long id, String name) {
+        Brand brand = brandRepository.findById(id).get();
+        brand.setName(name);
+        brandRepository.save(brand);
+    }
+
+
+
+
+
+
+
+
+
+
 
     @Override
     public void createBrand(Brand brand) {
@@ -70,7 +103,7 @@ public class BrandServiceImpl implements BrandService {
 
      @Override
      public List<Brand> getBrandsByCategory(Category category) {
-     return null; //brandRepository.findAllByCategoryOrderByCreationDateDesc(category,pageable);
+     return null; //brandRepository.findAllByCategoryOrderByCreationDateDesc(category);
      }
 
      @Override

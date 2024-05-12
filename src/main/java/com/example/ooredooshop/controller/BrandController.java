@@ -5,11 +5,12 @@ import com.example.ooredooshop.models.Brand;
 import com.example.ooredooshop.models.Category;
 import com.example.ooredooshop.services.BrandService;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -20,6 +21,23 @@ import java.util.List;
 public class BrandController {
 
     private final BrandService brandService;
+
+    @PostMapping("/save")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void saveBrand(@RequestParam("file") MultipartFile file,
+            @RequestParam("name") String name)
+    {
+        brandService.saveBrand(file, name);
+
+    }
+
+    @PostMapping("/changeName")
+    public String changeBrandName(@RequestParam("id") Long id,
+                              @RequestParam("newname") String name)
+    {
+        brandService.changeBrandName(id, name);
+        return "redirect:/listProducts.html";
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -63,8 +81,7 @@ public class BrandController {
 
     @GetMapping("/search")
     public List<Brand> searchBrandsByKeyword(
-            @RequestParam String keyword,
-            Pageable pageable
+            @RequestParam String keyword
     ) {
         return brandService.searchBrandsByName(keyword);
     }
@@ -88,8 +105,7 @@ public class BrandController {
 
     @GetMapping("/creatorId/{creatorId}")
     public List<Brand> getAllBrandsByCreatorIdSortedByCreationDate(@PathVariable Long creatorId,
-                                                                      @RequestParam(name = "reference", required = false) String reference,
-                                                                      Pageable pageable){
+                                                                      @RequestParam(name = "reference", required = false) String reference){
         return brandService.getAllBrandsByCreatorIdSortedByCreationDate(creatorId, reference);
     }
 

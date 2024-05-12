@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.util.List;
 
 public interface BrandService {
+
+    void saveBrand(MultipartFile file, String name);
+    void changeBrandName(Long id, String name) ;
     void createBrand(Brand brand);
     Brand updateBrand(Brand brand);
     Brand getBrandById(Long id);
