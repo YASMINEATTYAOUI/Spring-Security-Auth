@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -24,10 +26,14 @@ public class BrandController {
 
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public void saveBrand(@RequestParam("file") MultipartFile file,
-            @RequestParam("name") String name)
-    {
-        brandService.saveBrand(file, name);
+    public ResponseEntity<Brand> saveBrand(@RequestParam("file") MultipartFile file,
+            @RequestParam("name") String name) throws IOException {
+        Brand brand = new Brand();
+        brand.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
+        brand.setName(name);
+        //brandService.saveBrand(file, name);
+        brandService.save(brand);
+        return new ResponseEntity<>(brand, HttpStatus.CREATED);
 
     }
 

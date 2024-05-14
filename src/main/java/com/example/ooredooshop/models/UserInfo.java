@@ -13,6 +13,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -24,17 +25,19 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "USERS")
-public class UserInfo {
+public class UserInfo implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private long id;
+    private Long id;
     private String username;
+    @Lob
+    @Column(columnDefinition = "MEDIUMBLOB")
+    private String image;
     private String fullName;
     private String email;
     private Integer phoneNumber;
-    @JsonIgnore
     private String password;
     @CreatedDate
     private Date creationDate;
@@ -45,11 +48,11 @@ public class UserInfo {
     @LastModifiedBy
     private String lastModifierId;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @ManyToOne
+    @JoinColumn(name = "roleId")
+    private UserRole roles;
 
-    private Set<UserRole> roles = new HashSet<>();
-
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Product> products = new HashSet<>();
 
 

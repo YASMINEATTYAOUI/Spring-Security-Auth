@@ -11,6 +11,8 @@ import java.util.List;
 
 public interface BrandService {
 
+
+    Brand  save(Brand brand);
     void saveBrand(MultipartFile file, String name);
     void changeBrandName(Long id, String name) ;
     void createBrand(Brand brand);

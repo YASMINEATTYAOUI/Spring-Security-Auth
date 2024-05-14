@@ -1,5 +1,7 @@
 package com.example.ooredooshop.controller;
 
+import com.example.ooredooshop.models.Brand;
+import com.example.ooredooshop.models.UserInfo;
 import com.example.ooredooshop.security.jwt.RefreshToken;
 import com.example.ooredooshop.payload.request.AuthRequestDTO;
 import com.example.ooredooshop.payload.request.RefreshTokenRequestDTO;
@@ -10,6 +12,7 @@ import com.example.ooredooshop.security.service.JwtService;
 import com.example.ooredooshop.security.service.RefreshTokenService;
 import com.example.ooredooshop.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,7 +20,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -38,21 +44,41 @@ public class UserController {
     @Autowired
     private  AuthenticationManager authenticationManager;
 
+
     @PostMapping(value = "/save")
-    public ResponseEntity saveUser(@RequestBody UserRequest userRequest) {
+    public ResponseEntity saveUser(@RequestBody UserInfo userRequest) {
         try {
-            UserResponse userResponse = userService.saveUser(userRequest);
+            UserInfo userResponse = userService.saveUser(userRequest);
             return ResponseEntity.ok(userResponse);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
+    @PostMapping("/create")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<UserInfo> createUser(@RequestParam("file") MultipartFile file,
+                                               @RequestParam("username") String username,
+                                               @RequestParam("password") String password
+                                               ) throws IOException {
+        try {
+        UserInfo user = new UserInfo();
+        user.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
+        user.setUsername(username);
+        user.setPassword(password);
+        userService.saveUser(user);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
+    } catch (Exception e) {
+        throw new RuntimeException(e);
+    }
+    }
+
+
     @GetMapping("/users")
     public ResponseEntity getAllUsers() {
         try {
-            List<UserResponse> userResponses = userService.getAllUser();
-            return ResponseEntity.ok(userResponses);
+            List<UserInfo> user = userService.getAllUser();
+            return ResponseEntity.ok(user);
         } catch (Exception e){
             throw new RuntimeException(e);
         }
@@ -60,10 +86,10 @@ public class UserController {
 
 
     @PostMapping("/profile")
-    public ResponseEntity<UserResponse> getUserProfile() {
+    public ResponseEntity<UserInfo> getUserProfile() {
         try {
-        UserResponse userResponse = userService.getUser();
-        return ResponseEntity.ok().body(userResponse);
+            UserInfo user= userService.getUser();
+        return ResponseEntity.ok().body(user);
         } catch (Exception e){
             throw new RuntimeException(e);
         }

@@ -1,9 +1,12 @@
 package com.example.ooredooshop.services.serviceImpl;
 
 
+import com.example.ooredooshop.exceptions.NotFoundException;
+import com.example.ooredooshop.models.UserRole;
 import com.example.ooredooshop.payload.request.UserRequest;
 import com.example.ooredooshop.payload.response.UserResponse;
 import com.example.ooredooshop.models.UserInfo;
+import com.example.ooredooshop.repositories.RoleRepository;
 import com.example.ooredooshop.repositories.UserRepository;
 import com.example.ooredooshop.services.UserService;
 import org.modelmapper.ModelMapper;
@@ -26,18 +29,27 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    RoleRepository roleRepository;
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
     ModelMapper modelMapper = new ModelMapper();
 
+    public void assignRole(Long userId, Long roleId) {
 
+    }
+
+    public void revokeRole(Long userId, Long roleId) {
+
+    }
 
     @Override
-    public UserResponse saveUser(UserRequest userRequest) {
-        if(userRequest.getUsername() == null){
-            throw new RuntimeException("Parameter username is not found in request..!!");
-        } else if(userRequest.getPassword() == null){
-            throw new RuntimeException("Parameter password is not found in request..!!");
-        }
+    public UserInfo saveUser(UserInfo user) {
+        try {
+            if(user.getUsername() == null){
+                throw new RuntimeException("Parameter username is not found in request..!!");
+            } else if(user.getPassword() == null){
+                throw new RuntimeException("Parameter password is not found in request..!!");
+            }
 
 
 //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -46,53 +58,54 @@ public class UserServiceImpl implements UserService {
 //
 //        UserInfo currentUser = userRepository.findByUsername(usernameFromAccessToken);
 
-        UserInfo savedUser = null;
+            UserInfo savedUser = null;
 
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String rawPassword = userRequest.getPassword();
-        String encodedPassword = encoder.encode(rawPassword);
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            String rawPassword = user.getPassword();
+            String encodedPassword = encoder.encode(rawPassword);
 
-        UserInfo user = modelMapper.map(userRequest, UserInfo.class);
-        user.setPassword(encodedPassword);
-        if(userRequest.getId() != null){
-            UserInfo oldUser = userRepository.findFirstById(userRequest.getId());
-            if(oldUser != null){
-                oldUser.setId(user.getId());
-                oldUser.setPassword(user.getPassword());
-                oldUser.setUsername(user.getUsername());
-                oldUser.setRoles(user.getRoles());
+            user.setPassword(encodedPassword);
+            if(user.getId() != null){
+                UserInfo oldUser = userRepository.findFirstById(user.getId());
+                if(oldUser != null){
+                    oldUser.setId(user.getId());
+                    oldUser.setPassword(user.getPassword());
+                    oldUser.setUsername(user.getUsername());
+                    oldUser.setRoles(user.getRoles());
 
-                savedUser = userRepository.save(oldUser);
-                userRepository.refresh(savedUser);
+                    savedUser = userRepository.save(oldUser);
+                    userRepository.refresh(savedUser);
+                } else {
+                    throw new RuntimeException("Can't find record with identifier: " + user.getId());
+                }
             } else {
-                throw new RuntimeException("Can't find record with identifier: " + userRequest.getId());
-            }
-        } else {
 //            user.setCreatedBy(currentUser);
-            user.setCreationDate(new Date());
-            savedUser = userRepository.save(user);
+                user.setCreationDate(new Date());
+                savedUser = userRepository.save(user);
+            }
+
+            return savedUser;
+        } catch (Exception e) {
+            throw e;
         }
-        userRepository.refresh(savedUser);
-        UserResponse userResponse = modelMapper.map(savedUser, UserResponse.class);
-        return userResponse;
+
     }
 
     @Override
-    public UserResponse getUser() {
+    public UserInfo getUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetail = (UserDetails) authentication.getPrincipal();
         String usernameFromAccessToken = userDetail.getUsername();
         UserInfo user = userRepository.findByUsername(usernameFromAccessToken);
-        UserResponse userResponse = modelMapper.map(user, UserResponse.class);
+        UserInfo userResponse = modelMapper.map(user, UserInfo.class);
         return userResponse;
     }
 
     @Override
-    public List<UserResponse> getAllUser() {
+    public List<UserInfo> getAllUser() {
         List<UserInfo> users = (List<UserInfo>) userRepository.findAll();
-        Type setOfDTOsType = new TypeToken<List<UserResponse>>(){}.getType();
-        List<UserResponse> userResponses = modelMapper.map(users, setOfDTOsType);
-        return userResponses;
+
+        return users;
     }
 
 

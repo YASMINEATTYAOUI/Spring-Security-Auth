@@ -14,7 +14,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @AllArgsConstructor
-@RequestMapping("/themes")
+@RequestMapping("/api/themes")
 public class ThemeController {
 
     private final ThemeService themeService;
