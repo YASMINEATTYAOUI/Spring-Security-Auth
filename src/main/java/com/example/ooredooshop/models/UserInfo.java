@@ -39,6 +39,7 @@ public class UserInfo implements Serializable {
     private String email;
     private Integer phoneNumber;
     private String password;
+    private Boolean active;
     @CreatedDate
     private Date creationDate;
     @CreatedBy
@@ -55,5 +56,8 @@ public class UserInfo implements Serializable {
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Product> products = new HashSet<>();
 
+    public boolean isActive() {
+        return active;
+    }
 
 }

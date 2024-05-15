@@ -73,6 +73,11 @@ public class UserController {
     }
     }
 
+    @PutMapping("/{userId}/toggle")
+    public ResponseEntity<UserInfo> toggleUserStatus(@PathVariable Long userId) {
+        UserInfo updatedUser = userService.toggleUserStatus(userId);
+        return ResponseEntity.ok(updatedUser);
+    }
 
     @GetMapping("/users")
     public ResponseEntity getAllUsers() {

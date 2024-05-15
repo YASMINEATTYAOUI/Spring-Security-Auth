@@ -10,9 +10,8 @@ import java.util.List;
 public interface UserService {
 
 
-
     UserInfo saveUser(UserInfo user);
-
+    public UserInfo toggleUserStatus(Long userId);
     UserInfo getUser();
 
     List<UserInfo> getAllUser();

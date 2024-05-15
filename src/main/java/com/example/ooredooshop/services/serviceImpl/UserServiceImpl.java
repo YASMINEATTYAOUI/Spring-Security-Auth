@@ -86,6 +86,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
+    public UserInfo toggleUserStatus(Long userId) {
+        UserInfo user = userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException("User not found"));
+
+        // Toggle the active status of the user
+        user.setActive(!user.isActive());
+
+        return userRepository.save(user);
+    }
+    @Override
     public UserInfo getUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetail = (UserDetails) authentication.getPrincipal();

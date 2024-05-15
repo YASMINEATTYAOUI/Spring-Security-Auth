@@ -32,7 +32,7 @@ public class RoleController {
     }
 
     @PutMapping("/{roleId}/toggle")
-    public ResponseEntity<UserRole> toggleRoleStatus(@PathVariable long roleId) {
+    public ResponseEntity<UserRole> toggleRoleStatus(@PathVariable Long roleId) {
         UserRole updatedRole = roleService.toggleRoleStatus(roleId);
         return ResponseEntity.ok(updatedRole);
     }
