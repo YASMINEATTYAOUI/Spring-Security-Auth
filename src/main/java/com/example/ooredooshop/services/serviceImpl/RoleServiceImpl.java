@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
@@ -38,6 +39,17 @@ public class RoleServiceImpl implements RoleService {
          logger.info("Role {} got updated", updatedRole.getId());
 
         return updatedRole;
+    }
+    @Override
+    @Transactional
+    public UserRole toggleRoleStatus(Long roleId) {
+        UserRole role = roleRepository.findById(roleId)
+                .orElseThrow(() -> new NotFoundException("Role not found"));
+
+        // Toggle the active status of the role
+        role.setActive(!role.isActive());
+
+        return roleRepository.save(role);
     }
 
     @Override
@@ -92,4 +104,5 @@ public class RoleServiceImpl implements RoleService {
     public long countRoles() {
         return roleRepository.count();
     }
+
 }

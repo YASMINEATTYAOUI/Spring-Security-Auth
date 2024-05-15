@@ -28,6 +28,7 @@ public class UserRole implements Serializable {
     private long id;
     private String name;
     private String description;
+    private Boolean active;
     @CreatedDate
     private Date creationDate;
     @CreatedBy
@@ -37,4 +38,7 @@ public class UserRole implements Serializable {
     @LastModifiedBy
     private String lastModifierId;
 
+    public boolean isActive() {
+        return active;
+    }
 }

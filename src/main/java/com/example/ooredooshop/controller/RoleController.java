@@ -31,6 +31,11 @@ public class RoleController {
         return roleService.updateRole(updatedRole);
     }
 
+    @PutMapping("/{roleId}/toggle")
+    public ResponseEntity<UserRole> toggleRoleStatus(@PathVariable long roleId) {
+        UserRole updatedRole = roleService.toggleRoleStatus(roleId);
+        return ResponseEntity.ok(updatedRole);
+    }
     @GetMapping("/sorted")
     @ResponseStatus(HttpStatus.OK)
     public List<UserRole> getAllRoles() {
@@ -61,8 +66,7 @@ public class RoleController {
 
     @GetMapping("/search")
     public List<UserRole> searchRolesByKeyword(
-            @RequestParam String keyword,
-            Pageable pageable
+            @RequestParam String keyword
     ) {
         return roleService.searchRolesByName(keyword);
     }
@@ -77,4 +81,6 @@ public class RoleController {
     public long countRoles(){
         return roleService.countRoles();
     }
+
+
 }
