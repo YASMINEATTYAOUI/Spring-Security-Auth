@@ -13,8 +13,8 @@ public interface RoleService {
 
 
     List<UserRole> getAllRolesSortedByCreationDate();
-    Page<UserRole> getAllRolesByCreatorIdSortedByCreationDate(Long creatorId, String name, Pageable pageable);
-    Page<UserRole> searchRolesByName(String keyword, Pageable pageable);
+    List<UserRole> getAllRolesByCreatorIdSortedByCreationDate(Long creatorId, String name);
+    List<UserRole> searchRolesByName(String keyword);
 
     void deleteRoleById(Long id);
     void deleteMultipleRolesByIds(List<Long> ids);

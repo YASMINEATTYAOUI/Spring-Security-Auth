@@ -12,13 +12,13 @@ public interface ProductService {
     Product updateProduct(Product product);
 
     Product getProductById(Long id);
-    Page<Product> getAllProductsSortedByCreationDate(Pageable pageable);
-    Page<Product> getAllProductsByCreatorIdSortedByCreationDate(Long creatorId, String reference, Pageable pageable);
+    List<Product> getAllProductsSortedByCreationDate( );
+    List<Product> getAllProductsByCreatorIdSortedByCreationDate(Long creatorId, String reference);
 
-    Page<Product> getProductByCategory(Category category, Pageable pageable);
+    List<Product> getProductByCategory(Category category);
 
-    Page<Product> getProductByCategoryAndReference(Category category, String reference, Pageable pageable);
-    Page<Product> searchProductsByReference(String keyword, Pageable pageable);
+    List<Product> getProductByCategoryAndReference(Category category, String reference );
+    List<Product> searchProductsByReference(String keyword);
 
     void deleteProductById(Long id);
     void deleteMultipleProductsByIds(List<Long> ids);

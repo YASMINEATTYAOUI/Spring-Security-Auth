@@ -8,8 +8,6 @@ import com.example.ooredooshop.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,34 +49,34 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<Product> getAllProductsSortedByCreationDate(Pageable pageable) {
+    public List<Product> getAllProductsSortedByCreationDate( ) {
         logger.info("Retrieving All Products (Sorted)");
-        return productRepository.findAllByOrderByCreationDateDesc(pageable);
+        return productRepository.findAllByOrderByCreationDateDesc();
     }
 
     @Override
-    public Page<Product>  getAllProductsByCreatorIdSortedByCreationDate(Long creatorId, String reference, Pageable pageable) {
+    public List<Product>  getAllProductsByCreatorIdSortedByCreationDate(Long creatorId, String reference ) {
 
         if(reference != null){
-            return productRepository.findByCreatorIdAndReferenceContainingIgnoreCaseOrderByCreationDate(creatorId, reference, pageable);
+            return productRepository.findByCreatorIdAndReferenceContainingIgnoreCaseOrderByCreationDate(creatorId, reference);
         }
-        return productRepository.findByCreatorIdOrderByCreationDate(creatorId, pageable);
+        return productRepository.findByCreatorIdOrderByCreationDate(creatorId);
     }
 
     @Override
-    public Page<Product> getProductByCategory(Category category, Pageable pageable) {
-        return productRepository.findByCategoryOrderByCreationDateDesc(category,pageable);
+    public List<Product> getProductByCategory(Category category ) {
+        return productRepository.findByCategoryOrderByCreationDateDesc(category);
     }
 
     @Override
-    public Page<Product> getProductByCategoryAndReference(Category category, String reference, Pageable pageable) {
+    public List<Product> getProductByCategoryAndReference(Category category, String reference ) {
         logger.info("Retrieving All Products By Category And Reference ");
-        return productRepository.findByCategoryAndReferenceContainingIgnoreCaseOrderByCreationDateDesc(category,reference,pageable);
+        return productRepository.findByCategoryAndReferenceContainingIgnoreCaseOrderByCreationDateDesc(category,reference);
     }
 
     @Override
-    public Page<Product> searchProductsByReference(String keyword, Pageable pageable) {
-        return productRepository.findByReferenceContainingIgnoreCaseOrderByCreationDateDesc(keyword, pageable);
+    public List<Product> searchProductsByReference(String keyword ) {
+        return productRepository.findByReferenceContainingIgnoreCaseOrderByCreationDateDesc(keyword);
     }
 
     @Override

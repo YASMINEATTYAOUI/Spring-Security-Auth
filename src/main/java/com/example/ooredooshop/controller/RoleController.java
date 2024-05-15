@@ -60,18 +60,17 @@ public class RoleController {
     }
 
     @GetMapping("/search")
-    public Page<UserRole> searchRolesByKeyword(
+    public List<UserRole> searchRolesByKeyword(
             @RequestParam String keyword,
             Pageable pageable
     ) {
-        return roleService.searchRolesByName(keyword, pageable);
+        return roleService.searchRolesByName(keyword);
     }
 
     @GetMapping("/creatorId/{creatorId}")
-    public Page<UserRole> getAllRolesByCreatorIdSortedByCreationDate(@PathVariable Long creatorId,
-                                                                          @RequestParam(name = "reference", required = false) String reference,
-                                                                          Pageable pageable){
-        return roleService.getAllRolesByCreatorIdSortedByCreationDate(creatorId, reference, pageable);
+    public List<UserRole> getAllRolesByCreatorIdSortedByCreationDate(@PathVariable Long creatorId,
+                                                                          @RequestParam(name = "reference", required = false) String reference){
+        return roleService.getAllRolesByCreatorIdSortedByCreationDate(creatorId, reference);
     }
 
     @GetMapping("/count")

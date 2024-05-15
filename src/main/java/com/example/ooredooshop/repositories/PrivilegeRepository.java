@@ -11,8 +11,8 @@ import java.util.List;
 @Repository
 public interface PrivilegeRepository extends JpaRepository<Privilege,Long> {
     List<Privilege> findAllByOrderByCreationDateDesc();
-    Page<Privilege> findByNameContainingIgnoreCaseOrderByCreationDateDesc(String name, Pageable pageable);
-    Page<Privilege> findByCreatorIdOrderByCreationDate(Long creatorId, Pageable pageable);
-    Page<Privilege> findByCreatorIdAndNameContainingIgnoreCaseOrderByCreationDate(Long creatorId, String name, Pageable pageable);
+    List<Privilege> findByNameContainingIgnoreCaseOrderByCreationDateDesc(String name);
+    List<Privilege> findByCreatorIdOrderByCreationDate(Long creatorId);
+    List<Privilege> findByCreatorIdAndNameContainingIgnoreCaseOrderByCreationDate(Long creatorId, String name);
 
 }

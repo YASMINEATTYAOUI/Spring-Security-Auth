@@ -58,18 +58,18 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Page<UserRole>  getAllRolesByCreatorIdSortedByCreationDate(Long creatorId, String name, Pageable pageable) {
+    public List<UserRole>  getAllRolesByCreatorIdSortedByCreationDate(Long creatorId, String name ) {
 
         if(name != null){
-            return roleRepository.findByCreatorIdAndNameContainingIgnoreCaseOrderByCreationDate(creatorId, name, pageable);
+            return roleRepository.findByCreatorIdAndNameContainingIgnoreCaseOrderByCreationDate(creatorId, name);
         }
-        return roleRepository.findByCreatorIdOrderByCreationDate(creatorId, pageable);
+        return roleRepository.findByCreatorIdOrderByCreationDate(creatorId);
     }
 
 
     @Override
-    public Page<UserRole> searchRolesByName(String keyword, Pageable pageable) {
-        return roleRepository.findByNameContainingIgnoreCaseOrderByCreationDateDesc(keyword, pageable);
+    public List<UserRole> searchRolesByName(String keyword ) {
+        return roleRepository.findByNameContainingIgnoreCaseOrderByCreationDateDesc(keyword );
     }
 
     @Override

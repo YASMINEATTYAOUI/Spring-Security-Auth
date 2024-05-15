@@ -76,7 +76,7 @@ public class CategoryController {
 
     @GetMapping("/category/reference")
     public List<Category> searchCategoriesByBrandAndName(
-            @RequestParam Brand brand, String reference,) {
+            @RequestParam Brand brand, String reference) {
         return categoryService.getCategoriesByBrandAndName(brand,reference);
     }
 */

@@ -9,8 +9,7 @@ import java.util.List;
 
 public interface UserService {
 
-    void assignRole(Long userId, Long roleId);
-    void revokeRole(Long userId, Long roleId);
+
 
     UserInfo saveUser(UserInfo user);
 

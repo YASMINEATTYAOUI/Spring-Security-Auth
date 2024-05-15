@@ -57,17 +57,17 @@ public class PrivilegeServiceImpl implements PrivilegeService {
     }
 
     @Override
-    public Page<Privilege>  getAllPrivilegesByCreatorIdSortedByCreationDate(Long creatorId, String name, Pageable pageable) {
+    public List<Privilege>  getAllPrivilegesByCreatorIdSortedByCreationDate(Long creatorId, String name) {
 
         if(name != null){
-            return privilegeRepository.findByCreatorIdAndNameContainingIgnoreCaseOrderByCreationDate(creatorId, name, pageable);
+            return privilegeRepository.findByCreatorIdAndNameContainingIgnoreCaseOrderByCreationDate(creatorId, name);
         }
-        return privilegeRepository.findByCreatorIdOrderByCreationDate(creatorId, pageable);
+        return privilegeRepository.findByCreatorIdOrderByCreationDate(creatorId);
     }
 
     @Override
-    public Page<Privilege> searchPrivilegesByName(String keyword, Pageable pageable) {
-        return privilegeRepository.findByNameContainingIgnoreCaseOrderByCreationDateDesc(keyword, pageable);
+    public List<Privilege> searchPrivilegesByName(String keyword ) {
+        return privilegeRepository.findByNameContainingIgnoreCaseOrderByCreationDateDesc(keyword);
     }
 
     @Override

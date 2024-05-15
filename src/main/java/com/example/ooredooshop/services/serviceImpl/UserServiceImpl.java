@@ -34,14 +34,6 @@ public class UserServiceImpl implements UserService {
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
     ModelMapper modelMapper = new ModelMapper();
 
-    public void assignRole(Long userId, Long roleId) {
-
-    }
-
-    public void revokeRole(Long userId, Long roleId) {
-
-    }
-
     @Override
     public UserInfo saveUser(UserInfo user) {
         try {

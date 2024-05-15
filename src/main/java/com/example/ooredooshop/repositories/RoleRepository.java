@@ -12,9 +12,9 @@ import java.util.List;
 public interface RoleRepository extends JpaRepository<UserRole,Long> {
 
     List<UserRole> findAllByOrderByCreationDateDesc();
-    Page<UserRole> findByNameContainingIgnoreCaseOrderByCreationDateDesc(String name, Pageable pageable);
-    Page<UserRole> findByCreatorIdOrderByCreationDate(Long creatorId, Pageable pageable);
-    Page<UserRole> findByCreatorIdAndNameContainingIgnoreCaseOrderByCreationDate(Long creatorId, String name, Pageable pageable);
+    List<UserRole> findByNameContainingIgnoreCaseOrderByCreationDateDesc(String name);
+    List<UserRole> findByCreatorIdOrderByCreationDate(Long creatorId );
+    List<UserRole> findByCreatorIdAndNameContainingIgnoreCaseOrderByCreationDate(Long creatorId, String name);
 
     UserRole findByName(String name);
 

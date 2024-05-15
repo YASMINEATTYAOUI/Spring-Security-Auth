@@ -34,8 +34,8 @@ public class ProductController {
 
     @GetMapping("/sorted")
     @ResponseStatus(HttpStatus.OK)
-    public Page<Product> getAllProducts(Pageable pageable) {
-        return productService.getAllProductsSortedByCreationDate(pageable);
+    public List<Product> getAllProducts() {
+        return productService.getAllProductsSortedByCreationDate();
     }
 
     @GetMapping("/{id}")
@@ -61,34 +61,31 @@ public class ProductController {
     }
 
     @GetMapping("/search")
-    public Page<Product> searchProductsByKeyword(
-            @RequestParam String keyword,
-            Pageable pageable
-    ) {
-        return productService.searchProductsByReference(keyword, pageable);
+    public List<Product> searchProductsByKeyword(
+            @RequestParam String keyword) {
+        return productService.searchProductsByReference(keyword);
     }
 
     @GetMapping("/category")
-    public Page<Product> searchProductsByCategory(
+    public List<Product> searchProductsByCategory(
             @RequestParam Category category,
             Pageable pageable
     ) {
-        return productService.getProductByCategory(category, pageable);
+        return productService.getProductByCategory(category);
     }
 
     @GetMapping("/category/reference")
-    public Page<Product> searchProductsByCategoryAndReference(
+    public List<Product> searchProductsByCategoryAndReference(
             @RequestParam Category category, String reference,
             Pageable pageable
     ) {
-        return productService.getProductByCategoryAndReference(category,reference, pageable);
+        return productService.getProductByCategoryAndReference(category,reference);
     }
 
     @GetMapping("/creatorId/{creatorId}")
-    public Page<Product> getAllCoursesByCreatorIdSortedByCreationDate(@PathVariable Long creatorId,
-                                                                        @RequestParam(name = "reference", required = false) String reference,
-                                                                        Pageable pageable){
-        return productService.getAllProductsByCreatorIdSortedByCreationDate(creatorId, reference, pageable);
+    public List<Product> getAllCoursesByCreatorIdSortedByCreationDate(@PathVariable Long creatorId,
+                                                                        @RequestParam(name = "reference", required = false) String reference){
+        return productService.getAllProductsByCreatorIdSortedByCreationDate(creatorId, reference);
     }
 
     @GetMapping("/count")

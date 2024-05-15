@@ -60,18 +60,15 @@ public class PrivilegeController {
     }
 
     @GetMapping("/search")
-    public Page<Privilege> searchPrivilegesByKeyword(
-            @RequestParam String keyword,
-            Pageable pageable
-    ) {
-        return privilegeService.searchPrivilegesByName(keyword, pageable);
+    public List<Privilege> searchPrivilegesByKeyword(
+            @RequestParam String keyword) {
+        return privilegeService.searchPrivilegesByName(keyword);
     }
 
     @GetMapping("/creatorId/{creatorId}")
-    public Page<Privilege> getAllPrivilegesByCreatorIdSortedByCreationDate(@PathVariable Long creatorId,
-                                                                           @RequestParam(name = "reference", required = false) String reference,
-                                                                           Pageable pageable){
-        return privilegeService.getAllPrivilegesByCreatorIdSortedByCreationDate(creatorId, reference, pageable);
+    public List<Privilege> getAllPrivilegesByCreatorIdSortedByCreationDate(@PathVariable Long creatorId,
+                                                                           @RequestParam(name = "reference", required = false) String reference){
+        return privilegeService.getAllPrivilegesByCreatorIdSortedByCreationDate(creatorId, reference);
     }
 
     @GetMapping("/count")
