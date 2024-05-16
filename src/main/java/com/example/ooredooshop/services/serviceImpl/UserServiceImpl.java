@@ -109,10 +109,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserInfo> getAllUser() {
         List<UserInfo> users = (List<UserInfo>) userRepository.findAll();
-
         return users;
     }
-
-
 
 }

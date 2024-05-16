@@ -50,4 +50,7 @@ public class RefreshTokenService {
 
     }
 
+    public void deleteByToken(String refreshToken) {
+        refreshTokenRepository.deleteByToken(refreshToken);
+    }
 }

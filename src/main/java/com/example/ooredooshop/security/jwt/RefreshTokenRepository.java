@@ -15,4 +15,6 @@ import java.util.Optional;
 public interface RefreshTokenRepository extends RefreshableCRUDRepository<RefreshToken, Integer> {
 
     Optional<RefreshToken> findByToken(String token);
+
+    void deleteByToken(String refreshToken);
 }

@@ -125,7 +125,6 @@ public class UserController {
 
     }
 
-
     @PostMapping("/refreshToken")
     public JwtResponseDTO refreshToken(@RequestBody RefreshTokenRequestDTO refreshTokenRequestDTO){
         return refreshTokenService.findByToken(refreshTokenRequestDTO.getToken())
@@ -137,6 +136,12 @@ public class UserController {
                             .accessToken(accessToken)
                             .token(refreshTokenRequestDTO.getToken()).build();
                 }).orElseThrow(() ->new RuntimeException("Refresh Token is not in DB..!!"));
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(@RequestBody String refreshToken) {
+        refreshTokenService.deleteByToken(refreshToken);
+        return ResponseEntity.ok("Logout successful");
     }
 
 }

@@ -6,7 +6,6 @@ import com.example.ooredooshop.models.Category;
 import com.example.ooredooshop.services.BrandService;
 import lombok.AllArgsConstructor;
 
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,39 +23,29 @@ public class BrandController {
 
     private final BrandService brandService;
 
-    @PostMapping("/save")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Brand> saveBrand(@RequestParam("file") MultipartFile file,
-            @RequestParam("name") String name) throws IOException {
+            @RequestParam("name") String name, @RequestParam("description") String description) throws IOException {
         Brand brand = new Brand();
         brand.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
         brand.setName(name);
-        //brandService.saveBrand(file, name);
+        brand.setDescription(description);
         brandService.save(brand);
         return new ResponseEntity<>(brand, HttpStatus.CREATED);
-
-    }
-
-    @PostMapping("/changeName")
-    public String changeBrandName(@RequestParam("id") Long id,
-                              @RequestParam("newname") String name)
-    {
-        brandService.changeBrandName(id, name);
-        return "redirect:/listProducts.html";
-    }
-
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void createBrand(@RequestBody Brand brand) {
-        brandService.createBrand(brand);
     }
 
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public Brand updateBrand(@RequestBody Brand updatedBrand) {
-        return brandService.updateBrand(updatedBrand);
+    public ResponseEntity<Brand> updateBrand(@RequestParam("file") MultipartFile file,
+                                           @RequestParam("name") String name, @RequestParam("description") String description) throws IOException {
+        Brand brand = new Brand();
+        brand.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
+        brand.setName(name);
+        brand.setDescription(description);
+        brandService.save(brand);
+        return new ResponseEntity<>(brand, HttpStatus.OK);
     }
-
     @GetMapping("/sorted")
     @ResponseStatus(HttpStatus.OK)
     public List<Brand> getAllBrands() {
@@ -94,17 +83,13 @@ public class BrandController {
 
      @GetMapping("/category")
      public List<Brand> searchBrandsByCategory(
-     @RequestParam Category category,
-     Pageable pageable
-     ) {
+     @RequestParam Category category) {
      return brandService.getBrandsByCategory(category);
      }
 
      @GetMapping("/category/reference")
      public List<Brand> searchBrandsByCategoryAndReference(
-     @RequestParam Category category, String reference,
-     Pageable pageable
-     ) {
+     @RequestParam Category category, String reference) {
      return brandService.getBrandsByCategoryAndName(category,reference);
      }
 

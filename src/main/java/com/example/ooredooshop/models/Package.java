@@ -27,8 +27,7 @@ public class Package {
     private String reference;
     private String description;
     private Integer nbProduct;
-    private Long pictureId;
-    private String tags;
+    private String image;
     private Float price;
     @CreatedDate
     private Date creationDate;
