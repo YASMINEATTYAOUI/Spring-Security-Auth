@@ -25,6 +25,5 @@ public interface ProductService {
 
     long countProducts();
 
-    long countByTagsContainingIgnoreCase(String tag);
 
 }

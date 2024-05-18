@@ -93,9 +93,4 @@ public class ProductController {
         return productService.countProducts();
     }
 
-    @GetMapping("/tags/count/{tag}")
-    public long countProductByTags(@PathVariable String tag){
-        return this.productService.countByTagsContainingIgnoreCase(tag);
-    }
-
 }

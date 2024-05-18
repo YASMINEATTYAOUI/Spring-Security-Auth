@@ -100,9 +100,6 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.count();
     }
 
-    @Override
-    public long countByTagsContainingIgnoreCase(String tag) {
-        return this.productRepository.countByTagsContainingIgnoreCase(tag);
-    }
+
 
 }

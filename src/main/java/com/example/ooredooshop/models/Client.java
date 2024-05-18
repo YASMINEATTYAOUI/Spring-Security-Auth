@@ -1,34 +1,36 @@
 package com.example.ooredooshop.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import lombok.ToString;
+
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
+import java.io.Serializable;
 import java.util.Date;
 
-
+@Entity
 @Data
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+public class Client implements Serializable {
 
-public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String reference;
-    private String description;
-    private Float price;
-    private String pictureId;
-    private Integer soldQuantity;
-    private Integer availableQuantity;
+    private String username;
+    private String fullName;
+    private String email;
+    private Integer phoneNumber;
+    private String password;
+    private Boolean active;
     @CreatedDate
     private Date creationDate;
     @CreatedBy
@@ -36,11 +38,9 @@ public class Product {
     @LastModifiedDate
     private Date lastModifiedDate;
     @LastModifiedBy
-    private  Long lastModifierId;
+    private String lastModifierId;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @OnDelete(action = OnDeleteAction.CASCADE )
-    @JoinColumn(name = "category_id")
-    private Category category;
-
+    public boolean isActive() {
+        return active;
+    }
 }

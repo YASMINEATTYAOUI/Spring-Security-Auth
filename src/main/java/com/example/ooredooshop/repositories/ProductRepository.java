@@ -13,7 +13,6 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     List<Product> findByReferenceContainingIgnoreCaseOrderByCreationDateDesc(String reference );
     List<Product> findByCreatorIdOrderByCreationDate(Long creatorId);
     List<Product> findByCreatorIdAndReferenceContainingIgnoreCaseOrderByCreationDate(Long creatorId, String reference );
-    long countByTagsContainingIgnoreCase(String tag);
     List<Product> findByCategoryOrderByCreationDateDesc(Category category );
     List<Product> findByCategoryAndReferenceContainingIgnoreCaseOrderByCreationDateDesc(Category category, String reference);
 }

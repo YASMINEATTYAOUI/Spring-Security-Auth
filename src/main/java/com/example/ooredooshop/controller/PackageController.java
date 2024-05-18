@@ -1,13 +1,19 @@
 package com.example.ooredooshop.controller;
 
 import com.example.ooredooshop.exceptions.NotFoundException;
+import com.example.ooredooshop.models.Brand;
 import com.example.ooredooshop.services.PackageService;
+import jakarta.persistence.Column;
+import jakarta.persistence.Lob;
 import lombok.AllArgsConstructor;
 import com.example.ooredooshop.models.Package;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -18,11 +24,23 @@ public class PackageController {
 
     private final PackageService packageService;
 
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createPackage(@RequestBody Package aPackage) {
-
+    public ResponseEntity<Package> createPackage(@RequestParam("file") MultipartFile file,
+                                           @RequestParam("reference") String reference, @RequestParam("description") String description,
+                                             Integer nbProduct,@RequestParam("price") Float price,
+                                             @RequestParam("soldQuantity")Integer soldQuantity,@RequestParam("availableQuantity")Integer availableQuantity) throws IOException {
+        Package aPackage = new Package();
+        aPackage.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
+        aPackage.setReference(reference);
+        aPackage.setDescription(description);
+        aPackage.setNbProduct(nbProduct);
+        aPackage.setPrice(price);
+        aPackage.setSoldQuantity(soldQuantity);
+        aPackage.setAvailableQuantity(availableQuantity);
         packageService.createPackage(aPackage);
+        return new ResponseEntity<>(aPackage, HttpStatus.CREATED);
     }
 
     @PutMapping

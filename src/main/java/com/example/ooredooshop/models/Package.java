@@ -1,9 +1,6 @@
 package com.example.ooredooshop.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +11,8 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Builder
 @Data
@@ -27,7 +26,11 @@ public class Package {
     private String reference;
     private String description;
     private Integer nbProduct;
+    @Lob
+    @Column(columnDefinition = "MEDIUMBLOB")
     private String image;
+    private Integer soldQuantity;
+    private Integer availableQuantity;
     private Float price;
     @CreatedDate
     private Date creationDate;
@@ -37,4 +40,7 @@ public class Package {
     private Date lastModifiedDate;
     @LastModifiedBy
     private Long lastModifierId;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Brand> brands = new HashSet<>();
 }
