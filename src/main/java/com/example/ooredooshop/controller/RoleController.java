@@ -73,8 +73,8 @@ public class RoleController {
 
     @GetMapping("/creatorId/{creatorId}")
     public List<UserRole> getAllRolesByCreatorIdSortedByCreationDate(@PathVariable Long creatorId,
-                                                                          @RequestParam(name = "reference", required = false) String reference){
-        return roleService.getAllRolesByCreatorIdSortedByCreationDate(creatorId, reference);
+                                                                          @RequestParam(name = "name", required = false) String name){
+        return roleService.getAllRolesByCreatorIdSortedByCreationDate(creatorId, name);
     }
 
     @GetMapping("/count")

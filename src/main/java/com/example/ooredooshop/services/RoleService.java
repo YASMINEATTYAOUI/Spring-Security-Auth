@@ -13,7 +13,6 @@ public interface RoleService {
     UserRole updateRole(UserRole role);
     UserRole getRoleById(Long id);
 
-
     List<UserRole> getAllRolesSortedByCreationDate();
     List<UserRole> getAllRolesByCreatorIdSortedByCreationDate(Long creatorId, String name);
     List<UserRole> searchRolesByName(String keyword);
