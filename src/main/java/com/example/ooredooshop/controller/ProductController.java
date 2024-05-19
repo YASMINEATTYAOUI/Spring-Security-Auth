@@ -2,6 +2,7 @@ package com.example.ooredooshop.controller;
 
 import com.example.ooredooshop.exceptions.NotFoundException;
 import com.example.ooredooshop.models.Category;
+import com.example.ooredooshop.models.Package;
 import com.example.ooredooshop.models.Product;
 import com.example.ooredooshop.services.ProductService;
 import lombok.AllArgsConstructor;
@@ -10,7 +11,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -22,8 +26,21 @@ public class ProductController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createProduct(@RequestBody Product product) {
+    public ResponseEntity<Product> createProduct(@RequestParam("file") MultipartFile file,
+                                                 @RequestParam("reference") String reference,
+                                                 @RequestParam("description") String description,
+                                                 @RequestParam("price") Float price,
+                                                 @RequestParam("soldQuantity")Integer soldQuantity,
+                                                 @RequestParam("availableQuantity")Integer availableQuantity) throws IOException {
+        Product product = new Product();
+        product.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
+        product.setReference(reference);
+        product.setDescription(description);
+        product.setPrice(price);
+        product.setSoldQuantity(soldQuantity);
+        product.setAvailableQuantity(availableQuantity);
         productService.createProduct(product);
+        return new ResponseEntity<>(product, HttpStatus.CREATED);
     }
 
     @PutMapping

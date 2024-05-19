@@ -28,9 +28,12 @@ public class PackageController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Package> createPackage(@RequestParam("file") MultipartFile file,
-                                           @RequestParam("reference") String reference, @RequestParam("description") String description,
-                                             Integer nbProduct,@RequestParam("price") Float price,
-                                             @RequestParam("soldQuantity")Integer soldQuantity,@RequestParam("availableQuantity")Integer availableQuantity) throws IOException {
+                                           @RequestParam("reference") String reference,
+                                           @RequestParam("description") String description,
+                                           Integer nbProduct,
+                                           @RequestParam("price") Float price,
+                                           @RequestParam("soldQuantity")Integer soldQuantity,
+                                           @RequestParam("availableQuantity")Integer availableQuantity) throws IOException {
         Package aPackage = new Package();
         aPackage.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
         aPackage.setReference(reference);

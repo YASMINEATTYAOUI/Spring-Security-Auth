@@ -1,31 +1,29 @@
 package com.example.ooredooshop.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import java.util.Date;
+import java.util.*;
 
-@Builder
 @Data
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Theme {
+public class Color {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-    //private String description;
+    private String colorCode;
     @CreatedDate
     private Date creationDate;
     @CreatedBy
@@ -34,4 +32,8 @@ public class Theme {
     private Date lastModifiedDate;
     @LastModifiedBy
     private String lastModifierId;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Product> products = new HashSet<>();
+
 }
