@@ -6,7 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -14,6 +15,9 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 
 @Entity
 @Data
@@ -24,6 +28,7 @@ public class Client implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
     private String username;
     private String fullName;

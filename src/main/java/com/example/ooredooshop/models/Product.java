@@ -27,8 +27,9 @@ public class Product {
     private String description;
     @Lob
     @Column(columnDefinition = "MEDIUMBLOB")
-    private String Image;
+    private String image;
     private Float price;
+    private String pictureId;
     private Integer soldQuantity;
     private Integer availableQuantity;
     @CreatedDate

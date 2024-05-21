@@ -25,11 +25,11 @@ public class RoleController {
         roleService.createRole(role);
     }
 
-    @PutMapping
+    /*@PutMapping
     @ResponseStatus(HttpStatus.OK)
     public UserRole updateRole(@RequestBody UserRole updatedRole) {
         return roleService.updateRole(updatedRole);
-    }
+    }*/
 
     @PutMapping("/{roleId}/toggle")
     public ResponseEntity<UserRole> toggleRoleStatus(@PathVariable Long roleId) {
@@ -80,6 +80,11 @@ public class RoleController {
     @GetMapping("/count")
     public long countRoles(){
         return roleService.countRoles();
+    }
+    @PutMapping("/{roleId}")
+    @ResponseStatus(HttpStatus.OK)
+    public UserRole updateRole(@PathVariable Long roleId, @RequestBody UserRole updatedRole) {
+        return roleService.updateRole(roleId, updatedRole);
     }
 
 

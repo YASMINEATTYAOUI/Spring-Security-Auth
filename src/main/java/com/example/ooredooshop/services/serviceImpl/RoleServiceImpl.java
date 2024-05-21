@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -105,4 +106,30 @@ public class RoleServiceImpl implements RoleService {
         return roleRepository.count();
     }
 
+    @Transactional
+    public UserRole updateRole(Long roleId, UserRole updatedRole) {
+        // Fetch the existing role
+        UserRole existingRole = roleRepository.findById(roleId)
+                .orElseThrow(() -> new NotFoundException("Role not found"));
+
+        // Update the role's fields
+        existingRole.setName(updatedRole.getName());
+        existingRole.setDescription(updatedRole.getDescription());
+        if (updatedRole.isActive() != null) {
+            existingRole.setActive(updatedRole.isActive());
+        } else {
+            existingRole.setActive(false); // Default to false if not provided
+        }
+        existingRole.setLastModifiedDate(new Date());
+        existingRole.setLastModifierId(updatedRole.getLastModifierId());
+        // Add other fields to be updated as necessary
+
+        // Save the updated role
+        return roleRepository.save(existingRole);
+    }
+
+
 }
+
+
+

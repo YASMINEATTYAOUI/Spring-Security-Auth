@@ -56,7 +56,7 @@ public class UserInfo implements Serializable {
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Product> products = new HashSet<>();
 
-    public boolean isActive() {
+    public Boolean isActive() {
         return active;
     }
 

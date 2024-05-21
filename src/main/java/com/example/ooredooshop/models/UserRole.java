@@ -38,7 +38,9 @@ public class UserRole implements Serializable {
     @LastModifiedBy
     private String lastModifierId;
 
-    public boolean isActive() {
+    public Boolean isActive() {
         return active;
     }
+
+
 }

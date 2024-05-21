@@ -10,7 +10,8 @@ import java.util.List;
 
 public interface RoleService {
     void createRole(UserRole roleRequest);
-    UserRole updateRole(UserRole role);
+    UserRole updateRole(UserRole role );
+    UserRole updateRole(Long roleId, UserRole role );
     UserRole getRoleById(Long id);
 
     List<UserRole> getAllRolesSortedByCreationDate();
