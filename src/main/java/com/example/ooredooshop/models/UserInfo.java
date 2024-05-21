@@ -1,7 +1,7 @@
 package com.example.ooredooshop.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -51,7 +51,7 @@ public class UserInfo implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "roleId")
-    private UserRole roles;
+    private UserRole role;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Product> products = new HashSet<>();

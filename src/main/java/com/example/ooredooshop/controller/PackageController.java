@@ -3,8 +3,7 @@ package com.example.ooredooshop.controller;
 import com.example.ooredooshop.exceptions.NotFoundException;
 import com.example.ooredooshop.models.Brand;
 import com.example.ooredooshop.services.PackageService;
-import jakarta.persistence.Column;
-import jakarta.persistence.Lob;
+
 import lombok.AllArgsConstructor;
 import com.example.ooredooshop.models.Package;
 import org.springframework.http.HttpStatus;

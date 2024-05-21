@@ -2,39 +2,47 @@ package com.example.ooredooshop.services.serviceImpl;
 
 
 import com.example.ooredooshop.exceptions.NotFoundException;
-import com.example.ooredooshop.models.UserRole;
-import com.example.ooredooshop.payload.request.UserRequest;
-import com.example.ooredooshop.payload.response.UserResponse;
+
 import com.example.ooredooshop.models.UserInfo;
+import com.example.ooredooshop.models.UserRole;
 import com.example.ooredooshop.repositories.RoleRepository;
 import com.example.ooredooshop.repositories.UserRepository;
 import com.example.ooredooshop.services.UserService;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService {
+@RequiredArgsConstructor
+@Slf4j
+public class UserServiceImpl implements UserService, UserDetailsService {
 
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    RoleRepository roleRepository;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+
+    private final PasswordEncoder passwordEncoder;
+
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
-    ModelMapper modelMapper = new ModelMapper();
 
     @Override
     public UserInfo saveUser(UserInfo user) {
@@ -54,9 +62,8 @@ public class UserServiceImpl implements UserService {
 
             UserInfo savedUser = null;
 
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             String rawPassword = user.getPassword();
-            String encodedPassword = encoder.encode(rawPassword);
+            String encodedPassword = passwordEncoder.encode(rawPassword);
 
             user.setPassword(encodedPassword);
             if(user.getId() != null){
@@ -65,10 +72,9 @@ public class UserServiceImpl implements UserService {
                     oldUser.setId(user.getId());
                     oldUser.setPassword(user.getPassword());
                     oldUser.setUsername(user.getUsername());
-                    oldUser.setRoles(user.getRoles());
+                    oldUser.setRole(user.getRole());
 
                     savedUser = userRepository.save(oldUser);
-                    userRepository.refresh(savedUser);
                 } else {
                     throw new RuntimeException("Can't find record with identifier: " + user.getId());
                 }
@@ -101,9 +107,7 @@ public class UserServiceImpl implements UserService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetail = (UserDetails) authentication.getPrincipal();
         String usernameFromAccessToken = userDetail.getUsername();
-        UserInfo user = userRepository.findByUsername(usernameFromAccessToken);
-        UserInfo userResponse = modelMapper.map(user, UserInfo.class);
-        return userResponse;
+        return userRepository.findByUsername(usernameFromAccessToken);
     }
 
     @Override
@@ -112,4 +116,19 @@ public class UserServiceImpl implements UserService {
         return users;
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserInfo account = userRepository.findByUsername(username);
+        if(account == null){
+            log.error("Account not found in the database");
+            throw new UsernameNotFoundException("Account not found in the database");
+        }
+        else{
+            log.info("Account found in the database");
+        }
+        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+
+        authorities.add(new SimpleGrantedAuthority(account.getRole().getName()));
+        return new User(account.getUsername(), account.getPassword(), authorities);
+    }
 }
