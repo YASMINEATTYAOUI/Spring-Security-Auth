@@ -11,7 +11,6 @@ public interface PrivilegeService {
     Privilege updatePrivilege(Privilege privilege);
     Privilege getPrivilegeById(Long id);
     List< Privilege> getAllPrivilegesSortedByCreationDate();
-    List< Privilege> getAllPrivilegesByCreatorIdSortedByCreationDate(Long creatorId, String name);
     List< Privilege> searchPrivilegesByName(String keyword);
 
     void deletePrivilegeById(Long id);

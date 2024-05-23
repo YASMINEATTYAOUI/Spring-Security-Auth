@@ -25,12 +25,10 @@ public class Privilege {
     private String description;
     @CreatedDate
     private Date creationDate;
-    @CreatedBy
-    private Long creatorId;
+
     @LastModifiedDate
     private Date lastModifiedDate;
-    @LastModifiedBy
-    private String lastModifierId;
+
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<UserRole> roles = new HashSet<>();

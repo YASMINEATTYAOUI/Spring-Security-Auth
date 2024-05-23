@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Base64;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -26,21 +27,7 @@ public class BrandServiceImpl implements BrandService {
     private static final Logger logger = LoggerFactory.getLogger(BrandServiceImpl.class);
 
     //new methode (save image)
-    public void saveBrand(MultipartFile file, String name) {
-        Brand brand = new Brand();
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        if (fileName.contains("..")) {
-            System.out.println("not a valid file");
-        }
-        try {
-            brand.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        brand.setName(name);
 
-        brandRepository.save(brand);
-    }
 
     public Brand  save(Brand brand ){
         return brandRepository.save(brand);
@@ -53,17 +40,9 @@ public class BrandServiceImpl implements BrandService {
     }
 
 
-
-
-
-
-
-
-
-
-
     @Override
     public void createBrand(Brand brand) {
+        brand.setCreationDate(new Date());
          brandRepository.save(brand);
         logger.info("Brand {} is saved", brand.getId());
     }
@@ -75,6 +54,7 @@ public class BrandServiceImpl implements BrandService {
         Brand existingBrand = brandRepository.findById(updatedBrand.getId())
          .orElseThrow(() -> new NotFoundException("Brand with ID " + finalUpdatedBrand.getId() + " not found"));
 
+        updatedBrand.setLastModifiedDate(new Date());
          updatedBrand = brandRepository.save(existingBrand);
         logger.info("Brand {} got updated", updatedBrand.getId());
 
@@ -96,26 +76,6 @@ public class BrandServiceImpl implements BrandService {
         logger.info("Retrieving All Brands (Sorted)");
         return brandRepository.findAllByOrderByCreationDateDesc();
     }
-
-    @Override
-    public List<Brand>  getAllBrandsByCreatorIdSortedByCreationDate(Long creatorId, String name) {
-
-        if(name != null){
-            return brandRepository.findByCreatorIdAndNameContainingIgnoreCaseOrderByCreationDate(creatorId, name);
-        }
-        return brandRepository.findByCreatorIdOrderByCreationDate(creatorId);
-    }
-
-     @Override
-     public List<Brand> getBrandsByCategory(Category category) {
-     return null; //brandRepository.findAllByCategoryOrderByCreationDateDesc(category);
-     }
-
-     @Override
-     public List<Brand> getBrandsByCategoryAndName(Category category, String name) {
-         logger.info("Retrieving All Brands By Category And Name ");
-     return null; //brandRepository.findAllByCategoryAndNameContainingIgnoreCaseOrderByCreationDateDesc(category,name);
-     }
 
     @Override
     public List<Brand> searchBrandsByName(String keyword) {

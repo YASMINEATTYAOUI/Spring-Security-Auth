@@ -27,10 +27,7 @@ public class Discount {
     private Date duration;
     @CreatedDate
     private Date creationDate;
-    @CreatedBy
-    private Long creatorId;
     @LastModifiedDate
     private Date lastModifiedDate;
-    @LastModifiedBy
-    private String lastModifierId;
+
 }

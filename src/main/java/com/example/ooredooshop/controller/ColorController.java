@@ -63,11 +63,7 @@ public class ColorController {
         return colorService.searchColorsByName(keyword);
     }
 
-    @GetMapping("/creatorId/{creatorId}")
-    public List<Color> getAllColorsByCreatorIdSortedByCreationDate(@PathVariable Long creatorId,
-                                                                       @RequestParam(name = "reference", required = false) String reference) {
-        return colorService.getAllColorsByCreatorIdSortedByCreationDate(creatorId, reference);
-    }
+
 
     @GetMapping("/count")
     public long countColors(){

@@ -9,8 +9,7 @@ public interface PackageService {
     Package updatePackage(Package aPackage);
     Package getPackageById(Long id);
     List<Package> getAllPackagesSortedByCreationDate();
-    List<Package> getAllPackagesByCreatorIdSortedByCreationDate(Long creatorId, String name);
-    List<Package> searchPackagesByReference(String keyword);
+     List<Package> searchPackagesByReference(String keyword);
 
     void deletePackageById(Long id);
     void deleteMultiplePackagesByIds(List<Long> ids);

@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -23,6 +24,7 @@ public class PrivilegeServiceImpl implements PrivilegeService {
     @Override
     public void createPrivilege(Privilege privilege) {
 
+        privilege.setCreationDate(new Date());
         privilegeRepository.save(privilege);
         logger.info("Privilege {} is saved", privilege.getId());
     }
@@ -34,6 +36,8 @@ public class PrivilegeServiceImpl implements PrivilegeService {
         Privilege existingPrivilege = privilegeRepository.findById(updatedPrivilege.getId())
          .orElseThrow(() -> new NotFoundException("Privilege with ID " + finalUpdatedPrivilege.getId() + " not found"));
 
+
+        updatedPrivilege.setLastModifiedDate(new Date());
          updatedPrivilege = privilegeRepository.save(existingPrivilege);
         logger.info("Privilege {} got updated", updatedPrivilege.getId());
 
@@ -56,14 +60,7 @@ public class PrivilegeServiceImpl implements PrivilegeService {
         return privilegeRepository.findAllByOrderByCreationDateDesc();
     }
 
-    @Override
-    public List<Privilege>  getAllPrivilegesByCreatorIdSortedByCreationDate(Long creatorId, String name) {
 
-        if(name != null){
-            return privilegeRepository.findByCreatorIdAndNameContainingIgnoreCaseOrderByCreationDate(creatorId, name);
-        }
-        return privilegeRepository.findByCreatorIdOrderByCreationDate(creatorId);
-    }
 
     @Override
     public List<Privilege> searchPrivilegesByName(String keyword ) {

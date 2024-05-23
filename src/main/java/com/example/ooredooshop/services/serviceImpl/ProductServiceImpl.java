@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -22,6 +23,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void createProduct(Product product) {
 
+        product.setCreationDate(new Date());
         productRepository.save(product);
         logger.info("Product {} is saved", product.getId());
 
@@ -30,13 +32,15 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product updateProduct(Product updatedProduct) {
 
+        Product finalUpdatedProduct = updatedProduct;
         Product existingProduct = productRepository.findById(updatedProduct.getId())
-             .orElseThrow(() -> new NotFoundException("Product with ID " + updatedProduct.getId() + " not found"));
+             .orElseThrow(() -> new NotFoundException("Product with ID " + finalUpdatedProduct.getId() + " not found"));
 
-       Product product = productRepository.save(updatedProduct);
+        updatedProduct.setCreationDate(new Date());
+        updatedProduct = productRepository.save(updatedProduct);
         logger.info("Product {} got updated", updatedProduct.getId());
 
-        return product;
+        return updatedProduct;
     }
 
     @Override
@@ -54,14 +58,7 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAllByOrderByCreationDateDesc();
     }
 
-    @Override
-    public List<Product>  getAllProductsByCreatorIdSortedByCreationDate(Long creatorId, String reference ) {
 
-        if(reference != null){
-            return productRepository.findByCreatorIdAndReferenceContainingIgnoreCaseOrderByCreationDate(creatorId, reference);
-        }
-        return productRepository.findByCreatorIdOrderByCreationDate(creatorId);
-    }
 
     @Override
     public List<Product> getProductByCategory(Category category ) {

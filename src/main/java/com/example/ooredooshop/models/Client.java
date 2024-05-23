@@ -38,12 +38,9 @@ public class Client implements Serializable {
     private Boolean active;
     @CreatedDate
     private Date creationDate;
-    @CreatedBy
-    private Long creatorId;
     @LastModifiedDate
     private Date lastModifiedDate;
-    @LastModifiedBy
-    private String lastModifierId;
+
 
     public boolean isActive() {
         return active;

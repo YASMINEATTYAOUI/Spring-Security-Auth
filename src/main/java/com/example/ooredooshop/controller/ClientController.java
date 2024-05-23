@@ -71,11 +71,6 @@ public class ClientController {
         return clentService.searchClientsByUsername(keyword);
     }
 
-    @GetMapping("/creatorId/{creatorId}")
-    public List<Client> getAllClientsByCreatorIdSortedByCreationDate(@PathVariable Long creatorId,
-                                                                         @RequestParam(name = "username", required = false) String username) {
-        return clentService.getAllClientsByCreatorIdSortedByCreationDate(creatorId, username);
-    }
 
     @GetMapping("/count")
     public long countClients() {

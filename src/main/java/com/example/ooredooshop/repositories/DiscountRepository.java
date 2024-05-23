@@ -13,15 +13,5 @@ import java.util.List;
 public interface DiscountRepository extends JpaRepository<Discount,Long> {
     List<Discount> findAllByOrderByCreationDateDesc();
     List<Discount> findByCreationDate(Date creationDate);
-    List<Discount> findByCreatorIdOrderByCreationDate(Long creatorId);
-    List<Discount> findByCreatorIdAndCreationDate(Long creatorId, Date creationDate);
-
-
-
-/*
-List<Discount> findAllByCategoryOrderByCreationDateDesc(Category category);
-
-List<Discount> findAllByCategoryAndNameContainingIgnoreCaseOrderByCreationDateDesc(Category category, String name);
-*/
 
 }

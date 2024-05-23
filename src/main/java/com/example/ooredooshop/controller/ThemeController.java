@@ -65,12 +65,6 @@ public class ThemeController {
         return themeService.searchThemesByName(keyword);
     }
 
-    @GetMapping("/creatorId/{creatorId}")
-    public List<Theme> getAllThemesByCreatorIdSortedByCreationDate(@PathVariable Long creatorId,
-                                                                   @RequestParam(name = "name", required = false) String name){
-        return themeService.getAllThemesByCreatorIdSortedByCreationDate(creatorId, name);
-    }
-
     @GetMapping("/count")
     public long countThemes(){
         return themeService.countThemes();

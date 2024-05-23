@@ -26,12 +26,10 @@ public class Color {
     private String colorCode;
     @CreatedDate
     private Date creationDate;
-    @CreatedBy
-    private Long creatorId;
+
     @LastModifiedDate
     private Date lastModifiedDate;
-    @LastModifiedBy
-    private String lastModifierId;
+
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Product> products = new HashSet<>();

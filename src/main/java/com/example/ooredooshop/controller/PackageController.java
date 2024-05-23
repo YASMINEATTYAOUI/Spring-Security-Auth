@@ -86,11 +86,7 @@ public class PackageController {
         return packageService.searchPackagesByReference(keyword);
     }
 
-    @GetMapping("/creatorId/{creatorId}")
-    public List<Package> getAllPackagesByCreatorIdSortedByCreationDate(@PathVariable Long creatorId,
-                                                                         @RequestParam(name = "reference", required = false) String reference){
-        return packageService.getAllPackagesByCreatorIdSortedByCreationDate(creatorId, reference);
-    }
+
 
     @GetMapping("/count")
     public long countPackages(){

@@ -81,25 +81,6 @@ public class BrandController {
         return brandService.searchBrandsByName(keyword);
     }
 
-     @GetMapping("/category")
-     public List<Brand> searchBrandsByCategory(
-     @RequestParam Category category) {
-     return brandService.getBrandsByCategory(category);
-     }
-
-     @GetMapping("/category/reference")
-     public List<Brand> searchBrandsByCategoryAndReference(
-     @RequestParam Category category, String reference) {
-     return brandService.getBrandsByCategoryAndName(category,reference);
-     }
-
-
-    @GetMapping("/creatorId/{creatorId}")
-    public List<Brand> getAllBrandsByCreatorIdSortedByCreationDate(@PathVariable Long creatorId,
-                                                                      @RequestParam(name = "reference", required = false) String reference){
-        return brandService.getAllBrandsByCreatorIdSortedByCreationDate(creatorId, reference);
-    }
-
     @GetMapping("/count")
     public long countBrands(){
         return brandService.countBrands();

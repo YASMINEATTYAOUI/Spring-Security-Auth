@@ -12,6 +12,7 @@ import com.example.ooredooshop.security.service.JwtService;
 import com.example.ooredooshop.security.service.RefreshTokenService;
 import com.example.ooredooshop.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Base64;
+import java.util.Date;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -59,13 +61,21 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<UserInfo> createUser(@RequestParam("file") MultipartFile file,
                                                @RequestParam("username") String username,
-                                               @RequestParam("password") String password
-                                               ) throws IOException {
+                                               @RequestParam("password") String fullName,
+                                               @RequestParam("email") String email,
+                                                @RequestParam("phoneNumber") Integer phoneNumber,
+                                               @RequestParam("password") String password,
+                                                @RequestParam("status") Boolean status) throws IOException {
         try {
         UserInfo user = new UserInfo();
         user.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
         user.setUsername(username);
+        user.setFullName(fullName);
+        user.setEmail(email);
+        user.setPhoneNumber(phoneNumber);
         user.setPassword(password);
+        user.setStatus(status);
+
         userService.saveUser(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     } catch (Exception e) {

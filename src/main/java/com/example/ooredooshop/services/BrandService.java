@@ -13,16 +13,12 @@ public interface BrandService {
 
 
     Brand  save(Brand brand);
-    void saveBrand(MultipartFile file, String name);
     void changeBrandName(Long id, String name) ;
     void createBrand(Brand brand);
     Brand updateBrand(Brand brand);
     Brand getBrandById(Long id);
     List<Brand> getAllBrandsSortedByCreationDate();
-    List<Brand> getAllBrandsByCreatorIdSortedByCreationDate(Long creatorId, String name);
-    List<Brand> getBrandsByCategory(Category category);
 
-    List<Brand> getBrandsByCategoryAndName(Category category, String name);
     List<Brand> searchBrandsByName(String keyword);
 
     void deleteBrandById(Long id);

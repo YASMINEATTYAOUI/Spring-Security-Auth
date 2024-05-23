@@ -64,14 +64,6 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public List<Client> getAllClientsByCreatorIdSortedByCreationDate(Long creatorId, String username) {
-        if (username != null) {
-            return clientRepository.findByCreatorIdAndUsernameContainingIgnoreCaseOrderByCreationDate(creatorId, username);
-        }
-        return clientRepository.findByCreatorIdOrderByCreationDate(creatorId);
-    }
-
-    @Override
     public List<Client> searchClientsByUsername(String keyword) {
         return clientRepository.findByUsernameContainingIgnoreCaseOrderByCreationDateDesc(keyword);
     }

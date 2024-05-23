@@ -13,11 +13,4 @@ import java.util.List;
 public interface BrandRepository extends JpaRepository<Brand,Long> {
     List<Brand> findAllByOrderByCreationDateDesc();
     List<Brand> findByNameContainingIgnoreCaseOrderByCreationDateDesc(String name);
-    List<Brand> findByCreatorIdOrderByCreationDate(Long creatorId);
-    List<Brand> findByCreatorIdAndNameContainingIgnoreCaseOrderByCreationDate(Long creatorId, String name);
-
-    //Page<Brand> findAllByCategoryOrderByCreationDateDesc(Category category );
-
-    //Page<Brand> findAllByCategoryAndNameContainingIgnoreCaseOrderByCreationDateDesc(Category category, String name);
-
-}
+    }

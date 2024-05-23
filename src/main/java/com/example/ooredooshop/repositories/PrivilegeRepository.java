@@ -12,7 +12,4 @@ import java.util.List;
 public interface PrivilegeRepository extends JpaRepository<Privilege,Long> {
     List<Privilege> findAllByOrderByCreationDateDesc();
     List<Privilege> findByNameContainingIgnoreCaseOrderByCreationDateDesc(String name);
-    List<Privilege> findByCreatorIdOrderByCreationDate(Long creatorId);
-    List<Privilege> findByCreatorIdAndNameContainingIgnoreCaseOrderByCreationDate(Long creatorId, String name);
-
 }

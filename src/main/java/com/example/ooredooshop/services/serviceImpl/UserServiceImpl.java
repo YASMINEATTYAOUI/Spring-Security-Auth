@@ -92,7 +92,7 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new NotFoundException("User not found"));
 
         // Toggle the active status of the user
-        user.setActive(!user.isActive());
+        user.setStatus(!user.isActive());
 
         return userRepository.save(user);
     }

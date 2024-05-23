@@ -24,7 +24,7 @@ public class RoleServiceImpl implements RoleService {
     private static final Logger logger = LoggerFactory.getLogger(RoleServiceImpl.class);
     @Override
     public void createRole(UserRole role) {
-
+        role.setCreationDate(new Date());
         roleRepository.save(role);
         logger.info("Role {} is saved", role.getId());
     }
@@ -32,10 +32,12 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public UserRole updateRole(UserRole updatedRole) {
 
+
         UserRole finalUpdatedRole = updatedRole;
         UserRole existingRole = roleRepository.findById(updatedRole.getId())
          .orElseThrow(() -> new NotFoundException("Role with ID " + finalUpdatedRole.getId() + " not found"));
 
+        updatedRole.setLastModifiedDate(new Date());
          updatedRole = roleRepository.save(existingRole);
          logger.info("Role {} got updated", updatedRole.getId());
 

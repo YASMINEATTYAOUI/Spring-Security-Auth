@@ -68,24 +68,7 @@ public class CategoryController {
     ) {
         return categoryService.searchCategoriesByName(keyword);
     }
-/*
-    @GetMapping("/category")
-    public List<Category> searchCategoriesByBrand( @RequestParam Brand brand) {
-        return categoryService.getCategoriesByBrand(brand);
-    }
 
-    @GetMapping("/category/reference")
-    public List<Category> searchCategoriesByBrandAndName(
-            @RequestParam Brand brand, String reference) {
-        return categoryService.getCategoriesByBrandAndName(brand,reference);
-    }
-*/
-
-    @GetMapping("/creatorId/{creatorId}")
-    public List<Category> getAllCategoriesByCreatorIdSortedByCreationDate(@PathVariable Long creatorId,
-                                                                   @RequestParam(name = "reference", required = false) String reference){
-        return categoryService.getAllCategoriesByCreatorIdSortedByCreationDate(creatorId, reference);
-    }
 
     @GetMapping("/count")
     public long countCategories(){

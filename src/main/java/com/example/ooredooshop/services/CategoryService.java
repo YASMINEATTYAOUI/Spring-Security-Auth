@@ -11,11 +11,7 @@ public interface CategoryService {
 
     Category getCategoryById(Long id);
     List<Category> getAllCategoriesSortedByCreationDate();
-    List<Category> getAllCategoriesByCreatorIdSortedByCreationDate(Long creatorId, String name);
-
-    //List<Category> getCategoriesByBrand(Brand brand);
-    //List<Category> getCategoriesByBrandAndName(Brand brand, String name) ;
-    List<Category> searchCategoriesByName(String keyword );
+   List<Category> searchCategoriesByName(String keyword );
 
     void deleteCategoryById(Long id);
     void deleteMultipleCategoriesByIds(List<Long> ids);

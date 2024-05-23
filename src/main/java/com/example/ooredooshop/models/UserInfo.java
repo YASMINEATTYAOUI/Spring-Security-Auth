@@ -39,15 +39,11 @@ public class UserInfo implements Serializable {
     private String email;
     private Integer phoneNumber;
     private String password;
-    private Boolean active;
+    private Boolean status;
     @CreatedDate
     private Date creationDate;
-    @CreatedBy
-    private Long creatorId;
     @LastModifiedDate
     private Date lastModifiedDate;
-    @LastModifiedBy
-    private String lastModifierId;
 
     @ManyToOne
     @JoinColumn(name = "roleId")
@@ -57,7 +53,7 @@ public class UserInfo implements Serializable {
     private Set<Product> products = new HashSet<>();
 
     public Boolean isActive() {
-        return active;
+        return status;
     }
 
 }

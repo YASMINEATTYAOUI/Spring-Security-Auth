@@ -12,11 +12,4 @@ import java.util.List;
 public interface CategoryRepository extends JpaRepository<Category,Long> {
     List<Category> findAllByOrderByCreationDateDesc();
     List<Category> findByNameContainingIgnoreCaseOrderByCreationDateDesc(String name);
-    List<Category> findByCreatorIdOrderByCreationDate(Long creatorId );
-    List<Category> findByCreatorIdAndNameContainingIgnoreCaseOrderByCreationDate(Long creatorId, String name );
-
-    //List<Category> findByBrandOrderByCreationDateDesc(Brand brand );
-
-   // List<Category> findByBrandAndNameContainingIgnoreCaseOrderByCreationDateDesc(Brand brand, String name);
-
-}
+    }

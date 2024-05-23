@@ -13,7 +13,6 @@ public interface ProductService {
 
     Product getProductById(Long id);
     List<Product> getAllProductsSortedByCreationDate( );
-    List<Product> getAllProductsByCreatorIdSortedByCreationDate(Long creatorId, String reference);
 
     List<Product> getProductByCategory(Category category);
 

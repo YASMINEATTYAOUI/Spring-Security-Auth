@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -20,6 +21,7 @@ public class ThemeServiceImpl implements ThemeService {
     private static final Logger logger = LoggerFactory.getLogger(ThemeServiceImpl.class);
     @Override
     public void createTheme(Theme theme) {
+        theme.setCreationDate(new Date());
         themeRepository.save(theme);
         logger.info("Theme {} is saved", theme.getId());
     }
@@ -30,6 +32,7 @@ public class ThemeServiceImpl implements ThemeService {
         Theme existingTheme = themeRepository.findById(updatedTheme.getId())
          .orElseThrow(() -> new NotFoundException("Theme with ID " + finalUpdatedTheme.getId() + " not found"));
 
+        updatedTheme.setLastModifiedDate(new Date());
          updatedTheme = themeRepository.save(existingTheme);
          logger.info("Theme {} got updated", updatedTheme.getId());
 
@@ -48,13 +51,6 @@ public class ThemeServiceImpl implements ThemeService {
     public List<Theme> getAllThemesSortedByCreationDate() {
         logger.info("Retrieving All Themes (Sorted)");
         return themeRepository.findAllByOrderByCreationDateDesc();
-    }
-    @Override
-    public List<Theme>  getAllThemesByCreatorIdSortedByCreationDate(Long creatorId, String name ) {
-        if(name != null){
-            return themeRepository.findByCreatorIdAndNameContainingIgnoreCaseOrderByCreationDate(creatorId, name);
-        }
-        return themeRepository.findByCreatorIdOrderByCreationDate(creatorId);
     }
     @Override
     public List<Theme> searchThemesByName(String keyword) {
