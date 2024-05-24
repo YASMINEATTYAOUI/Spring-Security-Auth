@@ -12,7 +12,4 @@ public interface ThemeRepository extends JpaRepository<Theme,Long> {
 
     List<Theme> findAllByOrderByCreationDateDesc();
     List<Theme> findByNameContainingIgnoreCaseOrderByCreationDateDesc(String name);
-    List<Theme> findByCreatorIdOrderByCreationDate(Long creatorId );
-    List<Theme> findByCreatorIdAndNameContainingIgnoreCaseOrderByCreationDate(Long creatorId, String name);
-
 }

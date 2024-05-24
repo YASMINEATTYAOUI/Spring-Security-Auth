@@ -13,9 +13,6 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
     List<Client> findByUsernameContainingIgnoreCaseOrderByCreationDateDesc(String username);
 
-    List<Client> findByCreatorIdOrderByCreationDate(Long creatorId);
-
-    List<Client> findByCreatorIdAndUsernameContainingIgnoreCaseOrderByCreationDate(Long creatorId, String username);
 
     Client findByUsername(String username);
 }

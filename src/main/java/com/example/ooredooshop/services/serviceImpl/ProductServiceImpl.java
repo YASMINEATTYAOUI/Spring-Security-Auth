@@ -55,15 +55,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product>  getAllProductsByCreatorIdSortedByCreationDate(Long creatorId, String reference ) {
-
-        if(reference != null){
-            return productRepository.findByCreatorIdAndReferenceContainingIgnoreCaseOrderByCreationDate(creatorId, reference);
-        }
-        return productRepository.findByCreatorIdOrderByCreationDate(creatorId);
-    }
-
-    @Override
     public List<Product> getProductByCategory(Category category ) {
         return productRepository.findByCategoryOrderByCreationDateDesc(category);
     }

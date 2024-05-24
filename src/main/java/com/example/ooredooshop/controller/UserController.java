@@ -29,6 +29,7 @@ public class UserController {
     @PostMapping(value = "/save")
     public ResponseEntity saveUser(@RequestBody UserInfo userRequest) {
         try {
+            System.out.println(userRequest);
             UserInfo userResponse = userService.saveUser(userRequest);
             return ResponseEntity.ok(userResponse);
         } catch (Exception e) {

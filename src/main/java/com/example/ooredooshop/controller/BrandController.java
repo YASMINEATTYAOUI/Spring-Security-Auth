@@ -94,11 +94,7 @@ public class BrandController {
      }
 
 
-    @GetMapping("/creatorId/{creatorId}")
-    public List<Brand> getAllBrandsByCreatorIdSortedByCreationDate(@PathVariable Long creatorId,
-                                                                      @RequestParam(name = "reference", required = false) String reference){
-        return brandService.getAllBrandsByCreatorIdSortedByCreationDate(creatorId, reference);
-    }
+
 
     @GetMapping("/count")
     public long countBrands(){

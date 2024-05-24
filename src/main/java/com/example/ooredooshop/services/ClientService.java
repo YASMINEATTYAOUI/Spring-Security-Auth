@@ -13,8 +13,7 @@ public interface ClientService {
     Client getClientById(Long id);
 
     List<Client> getAllClientsSortedByCreationDate();
-    List<Client> getAllClientsByCreatorIdSortedByCreationDate(Long creatorId, String username);
-    List<Client> searchClientsByUsername(String keyword);
+     List<Client> searchClientsByUsername(String keyword);
 
     void deleteClientById(Long id);
     void deleteMultipleClientsByIds(List<Long> ids);

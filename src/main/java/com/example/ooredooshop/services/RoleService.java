@@ -15,7 +15,6 @@ public interface RoleService {
     UserRole getRoleById(Long id);
 
     List<UserRole> getAllRolesSortedByCreationDate();
-    List<UserRole> getAllRolesByCreatorIdSortedByCreationDate(Long creatorId, String name);
     List<UserRole> searchRolesByName(String keyword);
 
     void deleteRoleById(Long id);

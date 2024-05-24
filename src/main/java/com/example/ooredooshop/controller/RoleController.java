@@ -71,11 +71,7 @@ public class RoleController {
         return roleService.searchRolesByName(keyword);
     }
 
-    @GetMapping("/creatorId/{creatorId}")
-    public List<UserRole> getAllRolesByCreatorIdSortedByCreationDate(@PathVariable Long creatorId,
-                                                                          @RequestParam(name = "name", required = false) String name){
-        return roleService.getAllRolesByCreatorIdSortedByCreationDate(creatorId, name);
-    }
+
 
     @GetMapping("/count")
     public long countRoles(){

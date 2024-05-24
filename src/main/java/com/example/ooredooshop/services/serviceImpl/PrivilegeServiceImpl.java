@@ -57,15 +57,6 @@ public class PrivilegeServiceImpl implements PrivilegeService {
     }
 
     @Override
-    public List<Privilege>  getAllPrivilegesByCreatorIdSortedByCreationDate(Long creatorId, String name) {
-
-        if(name != null){
-            return privilegeRepository.findByCreatorIdAndNameContainingIgnoreCaseOrderByCreationDate(creatorId, name);
-        }
-        return privilegeRepository.findByCreatorIdOrderByCreationDate(creatorId);
-    }
-
-    @Override
     public List<Privilege> searchPrivilegesByName(String keyword ) {
         return privilegeRepository.findByNameContainingIgnoreCaseOrderByCreationDateDesc(keyword);
     }

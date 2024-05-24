@@ -71,16 +71,6 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public List<UserRole>  getAllRolesByCreatorIdSortedByCreationDate(Long creatorId, String name ) {
-
-        if(name != null){
-            return roleRepository.findByCreatorIdAndNameContainingIgnoreCaseOrderByCreationDate(creatorId, name);
-        }
-        return roleRepository.findByCreatorIdOrderByCreationDate(creatorId);
-    }
-
-
-    @Override
     public List<UserRole> searchRolesByName(String keyword ) {
         return roleRepository.findByNameContainingIgnoreCaseOrderByCreationDateDesc(keyword );
     }
@@ -121,8 +111,6 @@ public class RoleServiceImpl implements RoleService {
             existingRole.setActive(false); // Default to false if not provided
         }
         existingRole.setLastModifiedDate(new Date());
-        existingRole.setLastModifierId(updatedRole.getLastModifierId());
-        // Add other fields to be updated as necessary
 
         // Save the updated role
         return roleRepository.save(existingRole);

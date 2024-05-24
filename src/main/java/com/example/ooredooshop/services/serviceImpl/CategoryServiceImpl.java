@@ -58,28 +58,6 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<Category>  getAllCategoriesByCreatorIdSortedByCreationDate(Long creatorId, String name) {
-
-        if(name != null){
-            return categoryRepository.findByCreatorIdAndNameContainingIgnoreCaseOrderByCreationDate(creatorId, name);
-        }
-        return categoryRepository.findByCreatorIdOrderByCreationDate(creatorId);
-    }
-/*
-    @Override
-    public List<Category> getCategoriesByBrand(Brand brand) {
-        return categoryRepository.findByBrandOrderByCreationDateDesc(brand);
-    }
-
-    @Override
-    public List<Category> getCategoriesByBrandAndName(Brand brand, String name) {
-        logger.info("Retrieving All Categories By Brand And Name ");
-        return categoryRepository.findByBrandAndNameContainingIgnoreCaseOrderByCreationDateDesc(brand,name);
-    }
-
- */
-
-    @Override
     public List<Category> searchCategoriesByName(String keyword) {
         return categoryRepository.findByNameContainingIgnoreCaseOrderByCreationDateDesc(keyword);
     }

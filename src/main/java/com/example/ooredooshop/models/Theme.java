@@ -26,10 +26,6 @@ public class Theme {
     private String description;
     @CreatedDate
     private Date creationDate;
-    @CreatedBy
-    private Long creatorId;
     @LastModifiedDate
     private Date lastModifiedDate;
-    @LastModifiedBy
-    private String lastModifierId;
 }

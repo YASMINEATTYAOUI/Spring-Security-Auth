@@ -19,8 +19,7 @@ public interface BrandService {
     Brand updateBrand(Brand brand);
     Brand getBrandById(Long id);
     List<Brand> getAllBrandsSortedByCreationDate();
-    List<Brand> getAllBrandsByCreatorIdSortedByCreationDate(Long creatorId, String name);
-    List<Brand> getBrandsByCategory(Category category);
+     List<Brand> getBrandsByCategory(Category category);
 
     List<Brand> getBrandsByCategoryAndName(Category category, String name);
     List<Brand> searchBrandsByName(String keyword);

@@ -37,13 +37,7 @@ public class PackageServiceImpl implements PackageService {
         return packageRepository.findAllByOrderByCreationDateDesc();
 
     }
-    public List<Package> getAllPackagesByCreatorIdSortedByCreationDate(Long creatorId, String name){
-        if(name != null){
-            return packageRepository.findByCreatorIdAndReferenceContainingIgnoreCaseOrderByCreationDate(creatorId, name);
-        }
-        return packageRepository.findByCreatorIdOrderByCreationDate(creatorId);
 
-    }
     public List<Package> searchPackagesByReference(String keyword){
         return packageRepository.findByReferenceContainingIgnoreCaseOrderByCreationDateDesc(keyword);
 

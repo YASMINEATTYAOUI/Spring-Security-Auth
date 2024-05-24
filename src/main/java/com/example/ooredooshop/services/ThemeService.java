@@ -9,8 +9,7 @@ public interface ThemeService {
     Theme updateTheme(Theme theme);
     Theme getThemeById(Long id);
     List<Theme> getAllThemesSortedByCreationDate( );
-    List<Theme> getAllThemesByCreatorIdSortedByCreationDate(Long creatorId, String name);
-    List<Theme> searchThemesByName(String keyword);
+   List<Theme> searchThemesByName(String keyword);
 
     void deleteThemeById(Long id);
     void deleteMultipleThemesByIds(List<Long> ids);

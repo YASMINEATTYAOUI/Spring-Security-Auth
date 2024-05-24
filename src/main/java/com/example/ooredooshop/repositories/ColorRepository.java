@@ -11,8 +11,6 @@ public interface ColorRepository extends JpaRepository<Color,Long > {
 
     List<Color> findAllByOrderByCreationDateDesc();
     List<Color> findByNameContainingIgnoreCaseOrderByCreationDateDesc(String name);
-    List<Color> findByCreatorIdOrderByCreationDate(Long creatorId );
-    List<Color> findByCreatorIdAndNameContainingIgnoreCaseOrderByCreationDate(Long creatorId, String name);
-    Color findByName(String name);
+      Color findByName(String name);
 
 }

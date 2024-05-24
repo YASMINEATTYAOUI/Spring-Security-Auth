@@ -34,12 +34,8 @@ public class Product {
     private Integer availableQuantity;
     @CreatedDate
     private Date creationDate;
-    @CreatedBy
-    private Long creatorId;
     @LastModifiedDate
     private Date lastModifiedDate;
-    @LastModifiedBy
-    private  Long lastModifierId;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE )

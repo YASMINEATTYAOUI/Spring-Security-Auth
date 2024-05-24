@@ -81,11 +81,7 @@ public class CategoryController {
     }
 */
 
-    @GetMapping("/creatorId/{creatorId}")
-    public List<Category> getAllCategoriesByCreatorIdSortedByCreationDate(@PathVariable Long creatorId,
-                                                                   @RequestParam(name = "reference", required = false) String reference){
-        return categoryService.getAllCategoriesByCreatorIdSortedByCreationDate(creatorId, reference);
-    }
+
 
     @GetMapping("/count")
     public long countCategories(){

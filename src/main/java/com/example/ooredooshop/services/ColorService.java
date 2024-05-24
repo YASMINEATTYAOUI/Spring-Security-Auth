@@ -11,7 +11,6 @@ public interface ColorService {
     Color getColorById(Long id);
 
     List<Color> getAllColorsSortedByCreationDate();
-    List<Color> getAllColorsByCreatorIdSortedByCreationDate(Long creatorId, String name);
     List<Color> searchColorsByName(String keyword);
 
     void deleteColorById(Long id);

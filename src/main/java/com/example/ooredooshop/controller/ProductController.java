@@ -99,11 +99,6 @@ public class ProductController {
         return productService.getProductByCategoryAndReference(category,reference);
     }
 
-    @GetMapping("/creatorId/{creatorId}")
-    public List<Product> getAllCoursesByCreatorIdSortedByCreationDate(@PathVariable Long creatorId,
-                                                                        @RequestParam(name = "reference", required = false) String reference){
-        return productService.getAllProductsByCreatorIdSortedByCreationDate(creatorId, reference);
-    }
 
     @GetMapping("/count")
     public long countProducts(){

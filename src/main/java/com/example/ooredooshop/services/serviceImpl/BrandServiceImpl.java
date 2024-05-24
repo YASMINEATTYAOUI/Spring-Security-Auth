@@ -52,16 +52,6 @@ public class BrandServiceImpl implements BrandService {
         brandRepository.save(brand);
     }
 
-
-
-
-
-
-
-
-
-
-
     @Override
     public void createBrand(Brand brand) {
          brandRepository.save(brand);
@@ -95,15 +85,6 @@ public class BrandServiceImpl implements BrandService {
     public List<Brand> getAllBrandsSortedByCreationDate() {
         logger.info("Retrieving All Brands (Sorted)");
         return brandRepository.findAllByOrderByCreationDateDesc();
-    }
-
-    @Override
-    public List<Brand>  getAllBrandsByCreatorIdSortedByCreationDate(Long creatorId, String name) {
-
-        if(name != null){
-            return brandRepository.findByCreatorIdAndNameContainingIgnoreCaseOrderByCreationDate(creatorId, name);
-        }
-        return brandRepository.findByCreatorIdOrderByCreationDate(creatorId);
     }
 
      @Override

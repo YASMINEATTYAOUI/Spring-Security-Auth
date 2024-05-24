@@ -10,10 +10,5 @@ import java.util.List;
 @Repository
 public interface PackageRepository extends JpaRepository <Package,Long> {
     List<Package> findAllByOrderByCreationDateDesc();
-
-    List<Package> findByCreatorIdOrderByCreationDate(Long creatorId);
-
-    List<Package> findByCreatorIdAndReferenceContainingIgnoreCaseOrderByCreationDate(Long creatorId, String refrence);
-
     List<Package> findByReferenceContainingIgnoreCaseOrderByCreationDateDesc(String keyword);
 }

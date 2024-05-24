@@ -65,12 +65,6 @@ public class PrivilegeController {
         return privilegeService.searchPrivilegesByName(keyword);
     }
 
-    @GetMapping("/creatorId/{creatorId}")
-    public List<Privilege> getAllPrivilegesByCreatorIdSortedByCreationDate(@PathVariable Long creatorId,
-                                                                           @RequestParam(name = "reference", required = false) String reference){
-        return privilegeService.getAllPrivilegesByCreatorIdSortedByCreationDate(creatorId, reference);
-    }
-
     @GetMapping("/count")
     public long countRoles(){
         return privilegeService.countPrivileges();

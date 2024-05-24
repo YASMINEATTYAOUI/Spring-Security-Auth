@@ -34,12 +34,8 @@ public class Package {
     private Float price;
     @CreatedDate
     private Date creationDate;
-    @CreatedBy
-    private Long creatorId;
     @LastModifiedDate
     private Date lastModifiedDate;
-    @LastModifiedBy
-    private Long lastModifierId;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Brand> brands = new HashSet<>();

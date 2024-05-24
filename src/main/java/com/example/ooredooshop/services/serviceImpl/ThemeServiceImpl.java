@@ -49,13 +49,7 @@ public class ThemeServiceImpl implements ThemeService {
         logger.info("Retrieving All Themes (Sorted)");
         return themeRepository.findAllByOrderByCreationDateDesc();
     }
-    @Override
-    public List<Theme>  getAllThemesByCreatorIdSortedByCreationDate(Long creatorId, String name ) {
-        if(name != null){
-            return themeRepository.findByCreatorIdAndNameContainingIgnoreCaseOrderByCreationDate(creatorId, name);
-        }
-        return themeRepository.findByCreatorIdOrderByCreationDate(creatorId);
-    }
+
     @Override
     public List<Theme> searchThemesByName(String keyword) {
         return themeRepository.findByNameContainingIgnoreCaseOrderByCreationDateDesc(keyword);

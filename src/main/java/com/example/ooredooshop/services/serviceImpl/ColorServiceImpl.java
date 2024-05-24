@@ -56,14 +56,6 @@ public class ColorServiceImpl implements ColorService {
     }
 
     @Override
-    public List<Color>  getAllColorsByCreatorIdSortedByCreationDate(Long creatorId, String name ) {
-        if(name != null){
-            return colorRepository.findByCreatorIdAndNameContainingIgnoreCaseOrderByCreationDate(creatorId, name);
-        }
-        return colorRepository.findByCreatorIdOrderByCreationDate(creatorId);
-    }
-
-    @Override
     public List<Color> searchColorsByName(String keyword ) {
         return colorRepository.findByNameContainingIgnoreCaseOrderByCreationDateDesc(keyword );
     }
