@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -27,6 +28,25 @@ public class PackageServiceImpl implements PackageService {
         packageRepository.save(updatePackage);
         updatePackage.setLastModifiedDate(new Date());
         return updatePackage;
+    }
+    @Transactional
+    public Package updatePackage(Long packageId, Package updatedPackage) {
+        // Fetch the existing package
+        Package existingPackage = packageRepository.findById(packageId)
+                .orElseThrow(() -> new NotFoundException("Package not found"));
+
+        // Update the package's fields
+        existingPackage.setReference(updatedPackage.getReference());
+        existingPackage.setDescription(updatedPackage.getDescription());
+        existingPackage.setNbProduct(updatedPackage.getNbProduct());
+        existingPackage.setPrice(updatedPackage.getPrice());
+        existingPackage.setSoldQuantity(updatedPackage.getSoldQuantity());
+        existingPackage.setAvailableQuantity(updatedPackage.getAvailableQuantity());
+        existingPackage.setImage(updatedPackage.getImage());
+        existingPackage.setLastModifiedDate(new Date());
+
+        // Save the updated package
+        return packageRepository.save(existingPackage);
     }
     public Package getPackageById(Long id){
         Package aPackage = packageRepository.findById(id)

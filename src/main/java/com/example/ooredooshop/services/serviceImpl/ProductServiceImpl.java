@@ -1,6 +1,7 @@
 package com.example.ooredooshop.services.serviceImpl;
 
 import com.example.ooredooshop.exceptions.NotFoundException;
+import com.example.ooredooshop.models.Brand;
 import com.example.ooredooshop.models.Category;
 import com.example.ooredooshop.models.Product;
 import com.example.ooredooshop.repositories.ProductRepository;
@@ -9,7 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
@@ -38,6 +41,24 @@ public class ProductServiceImpl implements ProductService {
         logger.info("Product {} got updated", updatedProduct.getId());
         updatedProduct.setLastModifiedDate(new Date());
         return product;
+    }
+    @Transactional
+    public Product updateProduct(Long brandId, Product updatedProduct) {
+        // Fetch the existing brand
+        Product existingProduct = productRepository.findById(brandId)
+                .orElseThrow(() -> new NotFoundException("Brand not found"));
+
+        // Update the brand's fields
+        existingProduct.setReference(updatedProduct.getReference());
+        existingProduct.setDescription(updatedProduct.getDescription());
+        existingProduct.setPrice(updatedProduct.getPrice());
+        existingProduct.setSoldQuantity(updatedProduct.getSoldQuantity());
+        existingProduct.setAvailableQuantity(updatedProduct.getAvailableQuantity());
+        existingProduct.setImage(updatedProduct.getImage());
+        existingProduct.setLastModifiedDate(new Date());
+
+        // Save the updated brand
+        return productRepository.save(existingProduct);
     }
 
     @Override

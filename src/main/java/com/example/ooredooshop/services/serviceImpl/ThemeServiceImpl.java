@@ -47,7 +47,7 @@ public class ThemeServiceImpl implements ThemeService {
 
         // Update the theme's fields
         existingTheme.setName(updatedTheme.getName());
-        existingTheme.setDescription(updatedTheme.getDescription());
+        existingTheme.setCharacteristic(updatedTheme.getCharacteristic());
         existingTheme.setLastModifiedDate(new Date());
 
         // Save the updated theme

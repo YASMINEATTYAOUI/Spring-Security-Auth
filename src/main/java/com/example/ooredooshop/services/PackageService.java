@@ -7,6 +7,7 @@ import java.util.List;
 public interface PackageService {
     void createPackage(Package aPackage);
     Package updatePackage(Package aPackage);
+    Package updatePackage(Long packageId, Package updatedPackage);
     Package getPackageById(Long id);
     List<Package> getAllPackagesSortedByCreationDate();
     List<Package> searchPackagesByReference(String keyword);

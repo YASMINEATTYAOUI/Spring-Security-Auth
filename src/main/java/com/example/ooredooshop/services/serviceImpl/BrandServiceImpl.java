@@ -59,6 +59,7 @@ public class BrandServiceImpl implements BrandService {
         // Update the brand's fields
         existingBrand.setName(updatedBrand.getName());
         existingBrand.setDescription(updatedBrand.getDescription());
+        existingBrand.setImage(updatedBrand.getImage());
         existingBrand.setLastModifiedDate(new Date());
 
         // Save the updated brand

@@ -49,6 +49,25 @@ public class ProductController {
         return productService.updateProduct(updatedProduct);
     }
 
+    @PutMapping("/{productId}")
+    @ResponseStatus(HttpStatus.OK)
+    public Product updateProduct(@PathVariable Long productId,
+                                 @RequestParam("file") MultipartFile file,
+                                 @RequestParam("reference") String reference,
+                                 @RequestParam("description") String description,
+                                 @RequestParam("price") Float price,
+                                 @RequestParam("soldQuantity")Integer soldQuantity,
+                                 @RequestParam("availableQuantity")Integer availableQuantity) throws IOException {
+        Product updatedProduct = new Product();
+        updatedProduct.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
+        updatedProduct.setReference(reference);
+        updatedProduct.setDescription(description);
+        updatedProduct.setPrice(price);
+        updatedProduct.setSoldQuantity(soldQuantity);
+        updatedProduct.setAvailableQuantity(availableQuantity);
+        return productService.updateProduct(productId, updatedProduct);
+    }
+
     @GetMapping("/sorted")
     @ResponseStatus(HttpStatus.OK)
     public List<Product> getAllProducts() {

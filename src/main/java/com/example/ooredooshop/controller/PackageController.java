@@ -45,6 +45,27 @@ public class PackageController {
         return new ResponseEntity<>(aPackage, HttpStatus.CREATED);
     }
 
+    @PutMapping("/{packageId}")
+    @ResponseStatus(HttpStatus.OK)
+    public Package updatePackage(@PathVariable Long packageId,
+                                 @RequestParam("file") MultipartFile file,
+                                 @RequestParam("reference") String reference,
+                                 @RequestParam("description") String description,
+                                 @RequestParam("nbProduct") Integer nbProduct,
+                                 @RequestParam("price") Float price,
+                                 @RequestParam("soldQuantity") Integer soldQuantity,
+                                 @RequestParam("availableQuantity") Integer availableQuantity) throws IOException {
+        Package updatedPackage = new Package();
+        updatedPackage.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
+        updatedPackage.setReference(reference);
+        updatedPackage.setDescription(description);
+        updatedPackage.setNbProduct(nbProduct);
+        updatedPackage.setPrice(price);
+        updatedPackage.setSoldQuantity(soldQuantity);
+        updatedPackage.setAvailableQuantity(availableQuantity);
+        return packageService.updatePackage(packageId, updatedPackage);
+    }
+
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
     public Package updatePackage(@RequestBody Package updatedPackage) {
