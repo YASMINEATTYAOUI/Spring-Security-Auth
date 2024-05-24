@@ -31,6 +31,12 @@ public class ThemeController {
         return themeService.updateTheme(updatedTheme);
     }
 
+    @PutMapping("/{themeId}")
+    @ResponseStatus(HttpStatus.OK)
+    public Theme updateTheme(@PathVariable Long themeId, @RequestBody Theme updatedTheme) {
+        return themeService.updateTheme(themeId, updatedTheme);
+    }
+
     @GetMapping("/sorted")
     @ResponseStatus(HttpStatus.OK)
     public List<Theme> getAllThemes( ) {

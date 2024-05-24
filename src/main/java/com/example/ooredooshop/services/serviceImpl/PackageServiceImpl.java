@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -19,10 +20,12 @@ public class PackageServiceImpl implements PackageService {
     private final PackageRepository packageRepository;
     private static final Logger logger = LoggerFactory.getLogger(PackageServiceImpl.class);
     public void createPackage(Package aPackage){
+        aPackage.setCreationDate(new Date());
         packageRepository.save(aPackage);
     }
     public Package updatePackage(Package updatePackage){
         packageRepository.save(updatePackage);
+        updatePackage.setLastModifiedDate(new Date());
         return updatePackage;
     }
     public Package getPackageById(Long id){

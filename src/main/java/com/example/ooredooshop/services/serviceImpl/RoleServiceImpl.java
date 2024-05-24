@@ -24,7 +24,7 @@ public class RoleServiceImpl implements RoleService {
     private static final Logger logger = LoggerFactory.getLogger(RoleServiceImpl.class);
     @Override
     public void createRole(UserRole role) {
-
+        role.setCreationDate(new Date());
         roleRepository.save(role);
         logger.info("Role {} is saved", role.getId());
     }
@@ -38,8 +38,28 @@ public class RoleServiceImpl implements RoleService {
 
          updatedRole = roleRepository.save(existingRole);
          logger.info("Role {} got updated", updatedRole.getId());
-
+        updatedRole.setLastModifiedDate(new Date());
         return updatedRole;
+    }
+
+    @Transactional
+    public UserRole updateRole(Long roleId, UserRole updatedRole) {
+        // Fetch the existing role
+        UserRole existingRole = roleRepository.findById(roleId)
+                .orElseThrow(() -> new NotFoundException("Role not found"));
+
+        // Update the role's fields
+        existingRole.setName(updatedRole.getName());
+        existingRole.setDescription(updatedRole.getDescription());
+        if (updatedRole.isActive() != null) {
+            existingRole.setActive(updatedRole.isActive());
+        } else {
+            existingRole.setActive(false); // Default to false if not provided
+        }
+        existingRole.setLastModifiedDate(new Date());
+
+        // Save the updated role
+        return roleRepository.save(existingRole);
     }
     @Override
     @Transactional
@@ -96,25 +116,7 @@ public class RoleServiceImpl implements RoleService {
         return roleRepository.count();
     }
 
-    @Transactional
-    public UserRole updateRole(Long roleId, UserRole updatedRole) {
-        // Fetch the existing role
-        UserRole existingRole = roleRepository.findById(roleId)
-                .orElseThrow(() -> new NotFoundException("Role not found"));
 
-        // Update the role's fields
-        existingRole.setName(updatedRole.getName());
-        existingRole.setDescription(updatedRole.getDescription());
-        if (updatedRole.isActive() != null) {
-            existingRole.setActive(updatedRole.isActive());
-        } else {
-            existingRole.setActive(false); // Default to false if not provided
-        }
-        existingRole.setLastModifiedDate(new Date());
-
-        // Save the updated role
-        return roleRepository.save(existingRole);
-    }
 
 
 }

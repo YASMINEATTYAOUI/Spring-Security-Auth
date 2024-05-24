@@ -30,6 +30,11 @@ public class ColorController {
         return colorService.updateColor(updatedColor);
     }
 
+    @PutMapping("/{colorId}")
+    @ResponseStatus(HttpStatus.OK)
+    public Color updateColor(@PathVariable Long colorId, @RequestBody Color updatedColor) {
+        return colorService.updateColor(colorId, updatedColor);
+    }
     @GetMapping("/sorted")
     @ResponseStatus(HttpStatus.OK)
     public List<Color> getAllColors() {
@@ -62,8 +67,6 @@ public class ColorController {
     public List<Color> searchColorsByKeyword( @RequestParam String keyword) {
         return colorService.searchColorsByName(keyword);
     }
-
-
 
     @GetMapping("/count")
     public long countColors(){

@@ -33,6 +33,12 @@ public class CategoryController {
         return categoryService.updateCategory(updatedCategory);
     }
 
+    @PutMapping("/{categoryId}")
+    @ResponseStatus(HttpStatus.OK)
+    public Category updateCategory(@PathVariable Long categoryId, @RequestBody Category updatedCategory) {
+        return categoryService.updateCategory(categoryId, updatedCategory);
+    }
+
     @GetMapping("/sorted")
     @ResponseStatus(HttpStatus.OK)
     public List<Category> getAllCtegories() {
@@ -68,20 +74,6 @@ public class CategoryController {
     ) {
         return categoryService.searchCategoriesByName(keyword);
     }
-/*
-    @GetMapping("/category")
-    public List<Category> searchCategoriesByBrand( @RequestParam Brand brand) {
-        return categoryService.getCategoriesByBrand(brand);
-    }
-
-    @GetMapping("/category/reference")
-    public List<Category> searchCategoriesByBrandAndName(
-            @RequestParam Brand brand, String reference) {
-        return categoryService.getCategoriesByBrandAndName(brand,reference);
-    }
-*/
-
-
 
     @GetMapping("/count")
     public long countCategories(){

@@ -3,6 +3,7 @@ package com.example.ooredooshop.services.serviceImpl;
 import com.example.ooredooshop.exceptions.NotFoundException;
 import com.example.ooredooshop.models.Brand;
 import com.example.ooredooshop.models.Category;
+import com.example.ooredooshop.models.UserRole;
 import com.example.ooredooshop.repositories.CategoryRepository;
 import com.example.ooredooshop.services.CategoryService;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -22,7 +25,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category createCategory(Category category) {
-        System.out.println(category);
+        category.setCreationDate(new Date());;
          Category c=categoryRepository.save(category);
         logger.info("Category {} is saved", category.getId());
         return c;
@@ -38,7 +41,22 @@ public class CategoryServiceImpl implements CategoryService {
          updatedCategory = categoryRepository.save(existingCategory);
         logger.info("Category {} got updated", updatedCategory.getId());
 
+        updatedCategory.setLastModifiedDate(new Date());
         return updatedCategory;
+    }
+
+    @Transactional
+    public Category updateCategory(Long roleId, Category updatedCategory) {
+        // Fetch the existing role
+        Category existingCategory = categoryRepository.findById(roleId)
+                .orElseThrow(() -> new NotFoundException("Role not found"));
+
+        // Update the role's fields
+        existingCategory.setName(updatedCategory.getName());
+        existingCategory.setLastModifiedDate(new Date());
+
+        // Save the updated role
+        return categoryRepository.save(existingCategory);
     }
 
     @Override

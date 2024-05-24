@@ -1,6 +1,7 @@
 package com.example.ooredooshop.services.serviceImpl;
 
 import com.example.ooredooshop.exceptions.NotFoundException;
+import com.example.ooredooshop.models.Category;
 import com.example.ooredooshop.models.Color;
 import com.example.ooredooshop.repositories.ColorRepository;
 import com.example.ooredooshop.services.ColorService;
@@ -9,7 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -20,7 +23,7 @@ public class ColorServiceImpl implements ColorService {
 
     @Override
     public void createColor(Color color) {
-
+        color.setCreationDate(new Date());
         colorRepository.save(color);
         logger.info("Color {} is saved", color.getId());
     }
@@ -34,8 +37,23 @@ public class ColorServiceImpl implements ColorService {
 
         updatedColor = colorRepository.save(existingColor);
         logger.info("Color {} got updated", updatedColor.getId());
-
+        updatedColor.setLastModifiedDate(new Date());
         return updatedColor;
+    }
+
+    @Transactional
+    public Color updateColor(Long roleId, Color updatedColor) {
+        // Fetch the existing role
+        Color existingColor = colorRepository.findById(roleId)
+                .orElseThrow(() -> new NotFoundException("Role not found"));
+
+        // Update the role's fields
+        existingColor.setName(updatedColor.getName());
+        existingColor.setColorCode(updatedColor.getColorCode());
+        existingColor.setLastModifiedDate(new Date());
+
+        // Save the updated role
+        return colorRepository.save(existingColor);
     }
 
     @Override

@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -21,7 +22,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void createProduct(Product product) {
-
+        product.setCreationDate(new Date());
         productRepository.save(product);
         logger.info("Product {} is saved", product.getId());
 
@@ -35,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
 
        Product product = productRepository.save(updatedProduct);
         logger.info("Product {} got updated", updatedProduct.getId());
-
+        updatedProduct.setLastModifiedDate(new Date());
         return product;
     }
 

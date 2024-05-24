@@ -46,6 +46,17 @@ public class BrandController {
         brandService.save(brand);
         return new ResponseEntity<>(brand, HttpStatus.OK);
     }
+
+    @PutMapping("/{brandId}")
+    @ResponseStatus(HttpStatus.OK)
+    public Brand updateBrand(@PathVariable Long brandId,@RequestParam("file") MultipartFile file,
+                             @RequestParam("name") String name, @RequestParam("description") String description) throws IOException {
+        Brand updatedBrand = new Brand();
+        updatedBrand.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
+        updatedBrand.setName(name);
+        updatedBrand.setDescription(description);
+        return brandService.updateBrand(brandId, updatedBrand);
+    }
     @GetMapping("/sorted")
     @ResponseStatus(HttpStatus.OK)
     public List<Brand> getAllBrands() {

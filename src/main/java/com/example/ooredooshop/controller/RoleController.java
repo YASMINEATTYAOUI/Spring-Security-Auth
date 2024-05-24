@@ -77,6 +77,7 @@ public class RoleController {
     public long countRoles(){
         return roleService.countRoles();
     }
+
     @PutMapping("/{roleId}")
     @ResponseStatus(HttpStatus.OK)
     public UserRole updateRole(@PathVariable Long roleId, @RequestBody UserRole updatedRole) {

@@ -8,7 +8,7 @@ import java.util.List;
 public interface CategoryService {
     Category createCategory(Category category);
     Category updateCategory(Category category);
-
+    Category updateCategory(Long roleId, Category updatedCategory);
     Category getCategoryById(Long id);
     List<Category> getAllCategoriesSortedByCreationDate();
 

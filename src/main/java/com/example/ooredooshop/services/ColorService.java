@@ -8,6 +8,7 @@ public interface ColorService {
 
     void createColor(Color color);
     Color updateColor(Color color);
+    Color updateColor(Long roleId, Color updatedColor);
     Color getColorById(Long id);
 
     List<Color> getAllColorsSortedByCreationDate();

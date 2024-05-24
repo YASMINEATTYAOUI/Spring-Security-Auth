@@ -13,8 +13,6 @@ public interface RoleRepository extends JpaRepository<UserRole,Long> {
 
     List<UserRole> findAllByOrderByCreationDateDesc();
     List<UserRole> findByNameContainingIgnoreCaseOrderByCreationDateDesc(String name);
-    List<UserRole> findByCreatorIdOrderByCreationDate(Long creatorId );
-    List<UserRole> findByCreatorIdAndNameContainingIgnoreCaseOrderByCreationDate(Long creatorId, String name);
 
     UserRole findByName(String name);
 

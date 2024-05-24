@@ -9,14 +9,12 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
+
+import org.springframework.transaction.annotation.Transactional;
 
 
-import java.io.IOException;
-import java.util.Base64;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -26,23 +24,10 @@ public class BrandServiceImpl implements BrandService {
     private static final Logger logger = LoggerFactory.getLogger(BrandServiceImpl.class);
 
     //new methode (save image)
-    public void saveBrand(MultipartFile file, String name) {
-        Brand brand = new Brand();
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        if (fileName.contains("..")) {
-            System.out.println("not a valid file");
-        }
-        try {
-            brand.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        brand.setName(name);
 
-        brandRepository.save(brand);
-    }
 
     public Brand  save(Brand brand ){
+        brand.setCreationDate(new Date());
         return brandRepository.save(brand);
     }
 
@@ -53,22 +38,31 @@ public class BrandServiceImpl implements BrandService {
     }
 
     @Override
-    public void createBrand(Brand brand) {
-         brandRepository.save(brand);
-        logger.info("Brand {} is saved", brand.getId());
-    }
-
-    @Override
     public Brand updateBrand(Brand updatedBrand) {
 
         Brand finalUpdatedBrand = updatedBrand;
         Brand existingBrand = brandRepository.findById(updatedBrand.getId())
-         .orElseThrow(() -> new NotFoundException("Brand with ID " + finalUpdatedBrand.getId() + " not found"));
+                .orElseThrow(() -> new NotFoundException("Brand with ID " + finalUpdatedBrand.getId() + " not found"));
 
-         updatedBrand = brandRepository.save(existingBrand);
+        updatedBrand = brandRepository.save(existingBrand);
         logger.info("Brand {} got updated", updatedBrand.getId());
-
+        updatedBrand.setLastModifiedDate(new Date());
         return updatedBrand;
+    }
+
+    @Transactional
+    public Brand updateBrand(Long brandId, Brand updatedBrand) {
+        // Fetch the existing brand
+        Brand existingBrand = brandRepository.findById(brandId)
+                .orElseThrow(() -> new NotFoundException("Brand not found"));
+
+        // Update the brand's fields
+        existingBrand.setName(updatedBrand.getName());
+        existingBrand.setDescription(updatedBrand.getDescription());
+        existingBrand.setLastModifiedDate(new Date());
+
+        // Save the updated brand
+        return brandRepository.save(existingBrand);
     }
 
     @Override

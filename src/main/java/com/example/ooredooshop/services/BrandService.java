@@ -2,6 +2,7 @@ package com.example.ooredooshop.services;
 
 import com.example.ooredooshop.models.Brand;
 import com.example.ooredooshop.models.Category;
+import com.example.ooredooshop.models.UserRole;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,10 +14,9 @@ public interface BrandService {
 
 
     Brand  save(Brand brand);
-    void saveBrand(MultipartFile file, String name);
     void changeBrandName(Long id, String name) ;
-    void createBrand(Brand brand);
     Brand updateBrand(Brand brand);
+    Brand updateBrand(Long brandId, Brand brand );
     Brand getBrandById(Long id);
     List<Brand> getAllBrandsSortedByCreationDate();
      List<Brand> getBrandsByCategory(Category category);

@@ -9,7 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -20,6 +22,7 @@ public class ThemeServiceImpl implements ThemeService {
     private static final Logger logger = LoggerFactory.getLogger(ThemeServiceImpl.class);
     @Override
     public void createTheme(Theme theme) {
+        theme.setCreationDate(new Date());
         themeRepository.save(theme);
         logger.info("Theme {} is saved", theme.getId());
     }
@@ -32,9 +35,25 @@ public class ThemeServiceImpl implements ThemeService {
 
          updatedTheme = themeRepository.save(existingTheme);
          logger.info("Theme {} got updated", updatedTheme.getId());
-
+        updatedTheme.setLastModifiedDate(new Date());
         return updatedTheme;
     }
+
+    @Transactional
+    public Theme updateTheme(Long themeId, Theme updatedTheme) {
+        // Fetch the existing theme
+        Theme existingTheme = themeRepository.findById(themeId)
+                .orElseThrow(() -> new NotFoundException("Theme not found"));
+
+        // Update the theme's fields
+        existingTheme.setName(updatedTheme.getName());
+        existingTheme.setDescription(updatedTheme.getDescription());
+        existingTheme.setLastModifiedDate(new Date());
+
+        // Save the updated theme
+        return themeRepository.save(existingTheme);
+    }
+
 
     @Override
     public Theme getThemeById(Long id) {
