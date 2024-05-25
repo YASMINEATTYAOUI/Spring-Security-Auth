@@ -24,11 +24,11 @@ public class ProductServiceImpl implements ProductService {
     private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
     @Override
-    public void createProduct(Product product) {
+    public Product  createProduct(Product product) {
         product.setCreationDate(new Date());
-        productRepository.save(product);
-        logger.info("Product {} is saved", product.getId());
 
+        logger.info("Product {} is saved", product.getId());
+        return productRepository.save(product);
     }
 
     @Override

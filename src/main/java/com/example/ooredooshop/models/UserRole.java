@@ -13,6 +13,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -38,5 +40,7 @@ public class UserRole implements Serializable {
         return active;
     }
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Privilege> privileges = new HashSet<>();
 
 }

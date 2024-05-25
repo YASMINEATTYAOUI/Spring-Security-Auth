@@ -24,9 +24,12 @@ public class Category {
     private Date creationDate;
     @LastModifiedDate
     private Date lastModifiedDate;
-
+/*
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Product> products = new ArrayList<>();
-
+*/
+public Category(Long id) {
+    this.id = id;
+}
 
 }

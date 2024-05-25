@@ -29,7 +29,7 @@ public class Brand {
     @LastModifiedDate
     private Date lastModifiedDate;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<Category> caterogies = new HashSet<>();
-
+    public Brand(Long id) {
+        this.id = id;
+    }
 }

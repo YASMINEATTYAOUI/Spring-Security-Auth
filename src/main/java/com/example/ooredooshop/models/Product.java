@@ -29,7 +29,6 @@ public class Product {
     @Column(columnDefinition = "MEDIUMBLOB")
     private String image;
     private Float price;
-    private String pictureId;
     private Integer soldQuantity;
     private Integer availableQuantity;
     @CreatedDate
@@ -41,5 +40,10 @@ public class Product {
     @OnDelete(action = OnDeleteAction.CASCADE )
     @JoinColumn(name = "category_id")
     private Category category;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE )
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
 
 }

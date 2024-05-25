@@ -1,5 +1,6 @@
 package com.example.ooredooshop.repositories;
 
+import com.example.ooredooshop.enumeration.Permission;
 import com.example.ooredooshop.models.Privilege;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,5 +12,5 @@ import java.util.List;
 @Repository
 public interface PrivilegeRepository extends JpaRepository<Privilege,Long> {
     List<Privilege> findAllByOrderByCreationDateDesc();
-    List<Privilege> findByNameContainingIgnoreCaseOrderByCreationDateDesc(String name);
+    //List<Privilege> findByNameContainingIgnoreCaseOrderByCreationDateDesc(Permission name);
 }

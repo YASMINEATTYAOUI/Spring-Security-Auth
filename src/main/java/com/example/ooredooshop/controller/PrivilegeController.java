@@ -1,5 +1,6 @@
 package com.example.ooredooshop.controller;
 
+import com.example.ooredooshop.enumeration.Permission;
 import com.example.ooredooshop.exceptions.NotFoundException;
 import com.example.ooredooshop.models.Privilege;
 import com.example.ooredooshop.services.PrivilegeService;
@@ -58,12 +59,14 @@ public class PrivilegeController {
         privilegeService.deleteMultiplePrivilegesByIds(ids);
         return ResponseEntity.ok().build();
     }
-
+/*
     @GetMapping("/search")
     public List<Privilege> searchPrivilegesByKeyword(
-            @RequestParam String keyword) {
+            @RequestParam Permission keyword) {
         return privilegeService.searchPrivilegesByName(keyword);
     }
+
+ */
 
     @GetMapping("/count")
     public long countRoles(){

@@ -1,6 +1,7 @@
 package com.example.ooredooshop.controller;
 
 import com.example.ooredooshop.exceptions.NotFoundException;
+import com.example.ooredooshop.models.Brand;
 import com.example.ooredooshop.models.Category;
 import com.example.ooredooshop.models.Package;
 import com.example.ooredooshop.models.Product;
@@ -26,21 +27,25 @@ public class ProductController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Product> createProduct(@RequestParam("file") MultipartFile file,
-                                                 @RequestParam("reference") String reference,
-                                                 @RequestParam("description") String description,
-                                                 @RequestParam("price") Float price,
-                                                 @RequestParam("soldQuantity")Integer soldQuantity,
-                                                 @RequestParam("availableQuantity")Integer availableQuantity) throws IOException {
-        Product product = new Product();
-        product.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
-        product.setReference(reference);
-        product.setDescription(description);
-        product.setPrice(price);
-        product.setSoldQuantity(soldQuantity);
-        product.setAvailableQuantity(availableQuantity);
-        productService.createProduct(product);
-        return new ResponseEntity<>(product, HttpStatus.CREATED);
+    public Product createProduct(@RequestParam("file") MultipartFile file,
+                                 @RequestParam("reference") String reference,
+                                 @RequestParam("description") String description,
+                                 @RequestParam("price") Float price,
+                                 @RequestParam("soldQuantity") Integer soldQuantity,
+                                 @RequestParam("availableQuantity") Integer availableQuantity
+                                 //@RequestParam("brand") Long brandId,
+                                 //@RequestParam("category") Long categoryId
+                                 ) throws IOException {
+        Product newProduct = new Product();
+        newProduct.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
+        newProduct.setReference(reference);
+        newProduct.setDescription(description);
+        newProduct.setPrice(price);
+        newProduct.setSoldQuantity(soldQuantity);
+        newProduct.setAvailableQuantity(availableQuantity);
+        //newProduct.setBrand(new Brand(brandId));  // Assuming Brand class has a constructor that accepts an ID
+        //newProduct.setCategory(new Category(categoryId));  // Assuming Category class has a constructor that accepts an ID
+        return productService.createProduct(newProduct);
     }
 
     @PutMapping

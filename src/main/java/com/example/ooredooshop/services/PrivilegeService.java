@@ -1,5 +1,6 @@
 package com.example.ooredooshop.services;
 
+import com.example.ooredooshop.enumeration.Permission;
 import com.example.ooredooshop.models.Privilege;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,7 +12,7 @@ public interface PrivilegeService {
     Privilege updatePrivilege(Privilege privilege);
     Privilege getPrivilegeById(Long id);
     List< Privilege> getAllPrivilegesSortedByCreationDate();
-     List< Privilege> searchPrivilegesByName(String keyword);
+    // List< Privilege> searchPrivilegesByName(Permission keyword);
 
     void deletePrivilegeById(Long id);
     void deleteMultiplePrivilegesByIds(List<Long> ids);

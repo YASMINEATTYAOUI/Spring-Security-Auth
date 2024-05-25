@@ -1,6 +1,7 @@
 package com.example.ooredooshop.services.serviceImpl;
 
 
+import com.example.ooredooshop.enumeration.Permission;
 import com.example.ooredooshop.exceptions.NotFoundException;
 import com.example.ooredooshop.models.Privilege;
 import com.example.ooredooshop.repositories.PrivilegeRepository;
@@ -56,11 +57,13 @@ public class PrivilegeServiceImpl implements PrivilegeService {
         logger.info("Retrieving All Privileges (Sorted)");
         return privilegeRepository.findAllByOrderByCreationDateDesc();
     }
-
+/*
     @Override
-    public List<Privilege> searchPrivilegesByName(String keyword ) {
+    public List<Privilege> searchPrivilegesByName(Permission keyword ) {
         return privilegeRepository.findByNameContainingIgnoreCaseOrderByCreationDateDesc(keyword);
     }
+
+ */
 
     @Override
     public void deletePrivilegeById(Long id) {
