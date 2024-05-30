@@ -98,6 +98,7 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     public UserInfo getUser() {
+        System.out.println("aaaaa");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetail = (UserDetails) authentication.getPrincipal();
         String usernameFromAccessToken = userDetail.getUsername();

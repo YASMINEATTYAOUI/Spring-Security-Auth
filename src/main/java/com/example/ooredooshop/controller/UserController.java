@@ -122,6 +122,7 @@ public class UserController {
 
     @PostMapping("/login")
     public JwtResponseDTO AuthenticateAndGetToken(@RequestBody AuthRequestDTO authRequestDTO){
+        System.out.println("iciiiiii");
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequestDTO.getUsername(), authRequestDTO.getPassword()));
         if(authentication.isAuthenticated()){
             RefreshToken refreshToken = refreshTokenService.createRefreshToken(authRequestDTO.getUsername());

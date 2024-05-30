@@ -46,8 +46,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/login").permitAll()
                         .requestMatchers("/api/auth/refreshToken").permitAll()
                         .requestMatchers("/error/*").permitAll()
-                        .requestMatchers("/**").permitAll())
-                        //.anyRequest().authenticated())
+                        //.requestMatchers("/**").permitAll())
+                        .anyRequest().authenticated())
 
                 .formLogin(form -> form
                         .loginProcessingUrl("/api/auth/login")
