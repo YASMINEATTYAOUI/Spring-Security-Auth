@@ -19,15 +19,23 @@ import java.util.Date;
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
     private Integer numberOrder;
     private Integer articlesNumber;
     private Float totalPrice;
-    private String orderStatus;
     private String deliveryType;
+    private Boolean orderStatus;
     @CreatedDate
     private Date creationDate;
-    @CreatedBy
-    private Long creatorId;
+
+    @ManyToOne
+    @JoinColumn(name = "clientId")
+    private Client client;
+
+    public Boolean isVerified() {
+        return orderStatus;
+    }
+
 }

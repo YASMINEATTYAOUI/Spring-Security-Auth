@@ -2,6 +2,7 @@ package com.example.ooredooshop.controller;
 
 
 import com.example.ooredooshop.exceptions.NotFoundException;
+import com.example.ooredooshop.models.Client;
 import com.example.ooredooshop.models.Order;
 import com.example.ooredooshop.services.OrderService;
 
@@ -20,9 +21,15 @@ import java.util.List;
 public class OrderController {
     private final OrderService orderService;
 
+    @PutMapping("/{orderId}/toggle")
+    public ResponseEntity<Order> toggleOrderStatus(@PathVariable Long orderId) {
+        Order updatedOrder = orderService.toggleOrderStatus(orderId);
+        return ResponseEntity.ok(updatedOrder);
+    }
     @GetMapping("/sorted")
     @ResponseStatus(HttpStatus.OK)
     public List<Order> getAllOrders() {
+
         return orderService.getAllOrdersSortedByCreationDate();
     }
 
@@ -46,11 +53,6 @@ public class OrderController {
     public ResponseEntity<Void> deleteMultipleOrders(@RequestParam List<Long> ids) {
         orderService.deleteMultipleOrdersByIds(ids);
         return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("/creatorId/{creatorId}")
-    public List<Order> getAllOrdersByCreatorIdSortedByCreationDate(@PathVariable Long creatorId){
-        return orderService.getAllOrdersByCreatorIdSortedByCreationDate(creatorId);
     }
 
     @GetMapping("/count")

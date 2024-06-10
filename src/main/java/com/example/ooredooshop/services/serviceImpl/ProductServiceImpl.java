@@ -1,9 +1,12 @@
 package com.example.ooredooshop.services.serviceImpl;
 
+import com.example.ooredooshop.dtos.ProductDto;
 import com.example.ooredooshop.exceptions.NotFoundException;
 import com.example.ooredooshop.models.Brand;
 import com.example.ooredooshop.models.Category;
 import com.example.ooredooshop.models.Product;
+import com.example.ooredooshop.repositories.BrandRepository;
+import com.example.ooredooshop.repositories.CategoryRepository;
 import com.example.ooredooshop.repositories.ProductRepository;
 import com.example.ooredooshop.services.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -11,26 +14,58 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
+    private final BrandRepository brandRepository;
+    private final CategoryRepository categoryRepository;
     private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
     @Override
-    public Product  createProduct(Product product) {
+    public Product createProduct(Product product) {
         product.setCreationDate(new Date());
 
         logger.info("Product {} is saved", product.getId());
         return productRepository.save(product);
     }
 
+    @Override
+public Product createProduct(MultipartFile file, String reference, String description, Float price, Integer soldQuantity, Integer availableQuantity, Long brandId, Long categoryId)  throws IOException  {
+    Optional<Brand> brand = brandRepository.findById(brandId);
+    Optional<Category> category = categoryRepository.findById(categoryId);
+
+    if (!brand.isPresent() || !category.isPresent()) {
+        throw new IllegalArgumentException("Brand or Category not found");
+    }
+
+    Product product = new Product();
+    product.setReference(reference);
+    product.setDescription(description);
+    product.setPrice(price);
+    product.setSoldQuantity(soldQuantity);
+    product.setAvailableQuantity(availableQuantity);
+    product.setBrand(brand.get());
+    product.setCategory(category.get());
+    product.setCreationDate(new Date());
+    product.setLastModifiedDate(new Date());
+
+    if (file != null && !file.isEmpty()) {
+        product.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
+
+    }
+
+    return productRepository.save(product);
+}
     @Override
     public Product updateProduct(Product updatedProduct) {
 

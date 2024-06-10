@@ -1,22 +1,17 @@
 package com.example.ooredooshop.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.data.annotation.CreatedBy;
+
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
+
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 
 @Entity
@@ -34,14 +29,14 @@ public class Client implements Serializable {
     private String fullName;
     private String email;
     private Integer phoneNumber;
-    private String password;
-    private Boolean active;
+    private String adress;
+    private Boolean status;
     @CreatedDate
     private Date creationDate;
     @LastModifiedDate
     private Date lastModifiedDate;
 
     public boolean isActive() {
-        return active;
+        return status;
     }
 }

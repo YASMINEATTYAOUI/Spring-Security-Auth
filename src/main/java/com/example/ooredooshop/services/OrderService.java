@@ -8,11 +8,9 @@ import java.util.List;
 
 public interface OrderService {
 
-
+    Order toggleOrderStatus(Long orderId);
     Order getOrderById(Long id);
     List<Order> getAllOrdersSortedByCreationDate();
-    List<Order> getAllOrdersByCreatorIdSortedByCreationDate(Long creatorId);
-
     void deleteOrderById(Long id);
     void deleteMultipleOrdersByIds(List<Long> ids);
 

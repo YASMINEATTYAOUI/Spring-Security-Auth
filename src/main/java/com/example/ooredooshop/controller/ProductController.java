@@ -1,10 +1,13 @@
 package com.example.ooredooshop.controller;
 
+import com.example.ooredooshop.dtos.ProductDto;
 import com.example.ooredooshop.exceptions.NotFoundException;
 import com.example.ooredooshop.models.Brand;
 import com.example.ooredooshop.models.Category;
 import com.example.ooredooshop.models.Package;
 import com.example.ooredooshop.models.Product;
+import com.example.ooredooshop.repositories.BrandRepository;
+import com.example.ooredooshop.repositories.CategoryRepository;
 import com.example.ooredooshop.services.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -24,6 +27,9 @@ import java.util.List;
 @RequestMapping("/api/products")
 public class ProductController {
     private final ProductService productService;
+    private final BrandRepository brandRepository;
+    private final CategoryRepository categoryRepository;
+
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -32,9 +38,9 @@ public class ProductController {
                                  @RequestParam("description") String description,
                                  @RequestParam("price") Float price,
                                  @RequestParam("soldQuantity") Integer soldQuantity,
-                                 @RequestParam("availableQuantity") Integer availableQuantity
-                                 //@RequestParam("brand") Long brandId,
-                                 //@RequestParam("category") Long categoryId
+                                 @RequestParam("availableQuantity") Integer availableQuantity,
+                                 @RequestParam("brand") Long brandId,
+                                 @RequestParam("category") Long categoryId
                                  ) throws IOException {
         Product newProduct = new Product();
         newProduct.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
@@ -43,9 +49,34 @@ public class ProductController {
         newProduct.setPrice(price);
         newProduct.setSoldQuantity(soldQuantity);
         newProduct.setAvailableQuantity(availableQuantity);
-        //newProduct.setBrand(new Brand(brandId));  // Assuming Brand class has a constructor that accepts an ID
-        //newProduct.setCategory(new Category(categoryId));  // Assuming Category class has a constructor that accepts an ID
+        Brand brand = brandRepository.findById(brandId).orElseThrow(() -> new RuntimeException("Brand not found"));
+        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new RuntimeException("Category not found"));
+
+
+        newProduct.setBrand(brand);
+        newProduct.setCategory(category);
         return productService.createProduct(newProduct);
+    }
+
+    /*
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
+    public ResponseEntity<Product> createProduct(
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("reference") String reference,
+            @RequestParam("description") String description,
+            @RequestParam("price") Float price,
+            @RequestParam("soldQuantity") Integer soldQuantity,
+            @RequestParam("availableQuantity") Integer availableQuantity,
+            @RequestParam("brand") Long brandId,
+            @RequestParam("category") Long categoryId
+    ) {
+        try {
+            Product product = productService.createProduct(file, reference, description, price, soldQuantity, availableQuantity, brandId, categoryId);
+            return ResponseEntity.ok(product);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @PutMapping
@@ -53,7 +84,7 @@ public class ProductController {
     public Product updateProduct(@RequestBody Product updatedProduct) {
         return productService.updateProduct(updatedProduct);
     }
-
+*/
     @PutMapping("/{productId}")
     @ResponseStatus(HttpStatus.OK)
     public Product updateProduct(@PathVariable Long productId,

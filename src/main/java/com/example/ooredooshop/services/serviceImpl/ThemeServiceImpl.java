@@ -23,6 +23,8 @@ public class ThemeServiceImpl implements ThemeService {
     @Override
     public void createTheme(Theme theme) {
         theme.setCreationDate(new Date());
+        theme.setLastModifiedDate(new Date());
+
         themeRepository.save(theme);
         logger.info("Theme {} is saved", theme.getId());
     }

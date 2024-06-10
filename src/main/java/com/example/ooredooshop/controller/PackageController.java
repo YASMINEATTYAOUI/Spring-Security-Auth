@@ -2,6 +2,8 @@ package com.example.ooredooshop.controller;
 
 import com.example.ooredooshop.exceptions.NotFoundException;
 import com.example.ooredooshop.models.Brand;
+import com.example.ooredooshop.models.Product;
+import com.example.ooredooshop.repositories.ProductRepository;
 import com.example.ooredooshop.services.PackageService;
 
 import lombok.AllArgsConstructor;
@@ -13,7 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Base64;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -22,7 +26,7 @@ import java.util.List;
 public class PackageController {
 
     private final PackageService packageService;
-
+    private final ProductRepository productRepository;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -32,7 +36,8 @@ public class PackageController {
                                            Integer nbProduct,
                                            @RequestParam("price") Float price,
                                            @RequestParam("soldQuantity")Integer soldQuantity,
-                                           @RequestParam("availableQuantity")Integer availableQuantity) throws IOException {
+                                           @RequestParam("availableQuantity")Integer availableQuantity,
+                                           @RequestParam("products") Set<Long> productIds) throws IOException {
         Package aPackage = new Package();
         aPackage.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
         aPackage.setReference(reference);
@@ -41,6 +46,11 @@ public class PackageController {
         aPackage.setPrice(price);
         aPackage.setSoldQuantity(soldQuantity);
         aPackage.setAvailableQuantity(availableQuantity);
+        Set<Product> products = new HashSet<>();
+        for (Long productId : productIds) {
+            productRepository.findById(productId).ifPresent(products::add);
+        }
+        aPackage.setProducts(products);
         packageService.createPackage(aPackage);
         return new ResponseEntity<>(aPackage, HttpStatus.CREATED);
     }

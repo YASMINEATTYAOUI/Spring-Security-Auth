@@ -1,9 +1,6 @@
 package com.example.ooredooshop.repositories;
 
-import com.example.ooredooshop.enumeration.Permission;
 import com.example.ooredooshop.models.Privilege;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

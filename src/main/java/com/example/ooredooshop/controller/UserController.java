@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,6 +26,12 @@ public class UserController {
     @Autowired
     UserService userService;
 
+
+
+    @GetMapping("/current-user")
+    public Object getCurrentUser(Authentication authentication) {
+        return userService.getCurrentUser(authentication);
+    }
 
 
 
@@ -92,6 +101,9 @@ public class UserController {
         }
     }
 
-
+    @GetMapping("/count")
+    public long countUsers(){
+        return userService.countUsers();
+    }
 
 }

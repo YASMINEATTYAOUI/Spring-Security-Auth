@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ClientService {
     void createClient(Client clientRequest);
-    Client updateClient(Client client);
+    Client toggleClientStatus(Long clientId);
     Client getClientById(Long id);
 
     List<Client> getAllClientsSortedByCreationDate();
@@ -19,5 +19,4 @@ public interface ClientService {
     void deleteMultipleClientsByIds(List<Long> ids);
     long countClients();
 
-    Client toggleClientStatus(Long clientId);
 }

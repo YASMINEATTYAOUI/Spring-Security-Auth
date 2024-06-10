@@ -25,17 +25,18 @@ public class RoleController {
         roleService.createRole(role);
     }
 
-    /*@PutMapping
+    @PutMapping("/{roleId}")
     @ResponseStatus(HttpStatus.OK)
-    public UserRole updateRole(@RequestBody UserRole updatedRole) {
-        return roleService.updateRole(updatedRole);
-    }*/
+    public UserRole updateRole(@PathVariable Long roleId, @RequestBody UserRole updatedRole) {
+        return roleService.updateRole(roleId, updatedRole);
+    }
 
     @PutMapping("/{roleId}/toggle")
     public ResponseEntity<UserRole> toggleRoleStatus(@PathVariable Long roleId) {
         UserRole updatedRole = roleService.toggleRoleStatus(roleId);
         return ResponseEntity.ok(updatedRole);
     }
+
     @GetMapping("/sorted")
     @ResponseStatus(HttpStatus.OK)
     public List<UserRole> getAllRoles() {
@@ -78,11 +79,7 @@ public class RoleController {
         return roleService.countRoles();
     }
 
-    @PutMapping("/{roleId}")
-    @ResponseStatus(HttpStatus.OK)
-    public UserRole updateRole(@PathVariable Long roleId, @RequestBody UserRole updatedRole) {
-        return roleService.updateRole(roleId, updatedRole);
-    }
+
 
 
 }

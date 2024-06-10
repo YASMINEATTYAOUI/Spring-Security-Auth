@@ -4,7 +4,7 @@ package com.example.ooredooshop.services.serviceImpl;
 import com.example.ooredooshop.exceptions.NotFoundException;
 
 import com.example.ooredooshop.models.UserInfo;
-import com.example.ooredooshop.models.UserRole;
+
 import com.example.ooredooshop.repositories.RoleRepository;
 import com.example.ooredooshop.repositories.UserRepository;
 import com.example.ooredooshop.services.UserService;
@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,6 +23,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,6 +45,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+
+
+    @Override
+    public Object getCurrentUser(Authentication authentication) {
+        return authentication.getPrincipal();
+    }
 
     @Override
     public UserInfo saveUser(UserInfo user) {
@@ -81,6 +89,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             } else {
 //            user.setCreatedBy(currentUser);
                 user.setCreationDate(new Date());
+                user.setLastModifiedDate(new Date());
+
                 savedUser = userRepository.save(user);
             }
 
@@ -98,7 +108,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 .orElseThrow(() -> new NotFoundException("User not found"));
 
         // Toggle the active status of the user
-        user.setActive(!user.isActive());
+        user.setStatus(!user.isActive());
 
         return userRepository.save(user);
     }
@@ -130,5 +140,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         authorities.add(new SimpleGrantedAuthority(account.getRole().getName()));
         return new User(account.getUsername(), account.getPassword(), authorities);
+    }
+
+    @Override
+    public long countUsers() {
+        return userRepository.count();
     }
 }

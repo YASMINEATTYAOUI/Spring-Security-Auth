@@ -25,21 +25,10 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void createRole(UserRole role) {
         role.setCreationDate(new Date());
+        role.setLastModifiedDate(new Date());
+
         roleRepository.save(role);
         logger.info("Role {} is saved", role.getId());
-    }
-
-    @Override
-    public UserRole updateRole(UserRole updatedRole) {
-
-        UserRole finalUpdatedRole = updatedRole;
-        UserRole existingRole = roleRepository.findById(updatedRole.getId())
-         .orElseThrow(() -> new NotFoundException("Role with ID " + finalUpdatedRole.getId() + " not found"));
-
-         updatedRole = roleRepository.save(existingRole);
-         logger.info("Role {} got updated", updatedRole.getId());
-        updatedRole.setLastModifiedDate(new Date());
-        return updatedRole;
     }
 
     @Transactional

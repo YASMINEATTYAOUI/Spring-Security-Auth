@@ -28,6 +28,7 @@ public class BrandServiceImpl implements BrandService {
 
     public Brand  save(Brand brand ){
         brand.setCreationDate(new Date());
+        brand.setLastModifiedDate(new Date());
         return brandRepository.save(brand);
     }
 

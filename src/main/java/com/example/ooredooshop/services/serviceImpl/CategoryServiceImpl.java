@@ -25,10 +25,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category createCategory(Category category) {
-        category.setCreationDate(new Date());;
-         Category c=categoryRepository.save(category);
+        category.setCreationDate(new Date());
+        category.setLastModifiedDate(new Date());
+        category =categoryRepository.save(category);
         logger.info("Category {} is saved", category.getId());
-        return c;
+        return category;
     }
 
     @Override

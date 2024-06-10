@@ -22,6 +22,7 @@ public class PackageServiceImpl implements PackageService {
     private static final Logger logger = LoggerFactory.getLogger(PackageServiceImpl.class);
     public void createPackage(Package aPackage){
         aPackage.setCreationDate(new Date());
+        aPackage.setLastModifiedDate(new Date());
         packageRepository.save(aPackage);
     }
     public Package updatePackage(Package updatePackage){

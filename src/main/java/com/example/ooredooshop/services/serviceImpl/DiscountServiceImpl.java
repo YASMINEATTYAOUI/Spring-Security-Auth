@@ -23,6 +23,8 @@ public class DiscountServiceImpl implements DiscountService {
 
     @Override
     public void createDiscount(Discount discount) {
+        discount.setCreationDate(new Date());
+        discount.setLastModifiedDate(new Date());
         discountRepository.save(discount);
         logger.info("Discount {} is saved", discount.getId());
     }

@@ -24,6 +24,7 @@ public class ColorServiceImpl implements ColorService {
     @Override
     public void createColor(Color color) {
         color.setCreationDate(new Date());
+        color.setLastModifiedDate(new Date());
         colorRepository.save(color);
         logger.info("Color {} is saved", color.getId());
     }

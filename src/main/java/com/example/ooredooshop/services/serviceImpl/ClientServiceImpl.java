@@ -1,6 +1,7 @@
 package com.example.ooredooshop.services.serviceImpl;
 import com.example.ooredooshop.exceptions.NotFoundException;
 import com.example.ooredooshop.models.Client;
+import com.example.ooredooshop.models.Privilege;
 import com.example.ooredooshop.repositories.ClientRepository;
 import com.example.ooredooshop.services.ClientService;
 import lombok.RequiredArgsConstructor;
@@ -25,25 +26,13 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Client updateClient(Client updatedClient) {
-        Client finalUpdatedClient = updatedClient;
-        Client existingClient = clientRepository.findById(updatedClient.getId())
-                .orElseThrow(() -> new NotFoundException("Client with ID " + finalUpdatedClient.getId() + " not found"));
-
-        updatedClient = clientRepository.save(existingClient);
-        logger.info("Client {} got updated", updatedClient.getId());
-
-        return updatedClient;
-    }
-
-    @Override
     @Transactional
     public Client toggleClientStatus(Long clientId) {
         Client client = clientRepository.findById(clientId)
                 .orElseThrow(() -> new NotFoundException("Client not found"));
 
         // Toggle the active status of the client
-        client.setActive(!client.isActive());
+        client.setStatus(!client.isActive());
 
         return clientRepository.save(client);
     }

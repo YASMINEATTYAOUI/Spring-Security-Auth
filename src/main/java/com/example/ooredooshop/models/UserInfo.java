@@ -31,7 +31,10 @@ public class UserInfo implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
+
+    @Column(unique = true, nullable = false)
     private String username;
+
     @Lob
     @Column(columnDefinition = "MEDIUMBLOB")
     private String image;
@@ -39,7 +42,7 @@ public class UserInfo implements Serializable {
     private String email;
     private Integer phoneNumber;
     private String password;
-    private Boolean active;
+    private Boolean status;
     @CreatedDate
     private Date creationDate;
     @LastModifiedDate
@@ -54,7 +57,7 @@ public class UserInfo implements Serializable {
     private Set<Product> products = new HashSet<>();
 
     public Boolean isActive() {
-        return active;
+        return status;
     }
 
 }

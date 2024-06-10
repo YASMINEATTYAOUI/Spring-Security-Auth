@@ -1,8 +1,8 @@
 package com.example.ooredooshop.controller;
 
-import com.example.ooredooshop.enumeration.Permission;
 import com.example.ooredooshop.exceptions.NotFoundException;
 import com.example.ooredooshop.models.Privilege;
+import com.example.ooredooshop.models.UserRole;
 import com.example.ooredooshop.services.PrivilegeService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -26,10 +26,10 @@ public class PrivilegeController {
         privilegeService.createPrivilege(privilege);
     }
 
-    @PutMapping
-    @ResponseStatus(HttpStatus.OK)
-    public Privilege updatePrivilege(@RequestBody Privilege updatedPrivilege) {
-        return privilegeService.updatePrivilege(updatedPrivilege);
+    @PutMapping("/{privilegeId}/toggle")
+    public ResponseEntity<Privilege> togglePrivilegeStatus(@PathVariable Long privilegeId) {
+        Privilege updatedPrivilege = privilegeService.togglePrivilegeStatus(privilegeId);
+        return ResponseEntity.ok(updatedPrivilege);
     }
 
     @GetMapping("/sorted")
@@ -42,22 +42,6 @@ public class PrivilegeController {
     public ResponseEntity<Privilege> getPrivilegeById(@PathVariable Long id) {
         Privilege privilege = privilegeService.getPrivilegeById(id);
         return ResponseEntity.ok(privilege);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePrivilege(@PathVariable Long id) {
-        try {
-            privilegeService.deletePrivilegeById(id);
-            return ResponseEntity.ok().build();
-        } catch (NotFoundException e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @DeleteMapping("/batch")
-    public ResponseEntity<Void> deleteMultiplePrivileges(@RequestParam List<Long> ids) {
-        privilegeService.deleteMultiplePrivilegesByIds(ids);
-        return ResponseEntity.ok().build();
     }
 /*
     @GetMapping("/search")

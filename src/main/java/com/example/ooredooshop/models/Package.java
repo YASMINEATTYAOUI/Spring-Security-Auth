@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -37,6 +39,7 @@ public class Package {
     @LastModifiedDate
     private Date lastModifiedDate;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Brand> brands = new HashSet<>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Product> products = new HashSet<>();
+
 }

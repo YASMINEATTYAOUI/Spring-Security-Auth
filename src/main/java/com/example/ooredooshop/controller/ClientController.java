@@ -16,42 +16,37 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @RequestMapping("/api/clients")
 public class ClientController {
-    private final ClientService clentService;
+    private final ClientService clientService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createClient(@RequestBody Client client) {
-        clentService.createClient(client);
-    }
-
-    @PutMapping
-    @ResponseStatus(HttpStatus.OK)
-    public Client updateClient(@RequestBody Client updatedClient) {
-        return clentService.updateClient(updatedClient);
+        clientService.createClient(client);
     }
 
     @PutMapping("/{clientId}/toggle")
     public ResponseEntity<Client> toggleClientStatus(@PathVariable Long clientId) {
-        Client updatedClient = clentService.toggleClientStatus(clientId);
+        Client updatedClient = clientService.toggleClientStatus(clientId);
         return ResponseEntity.ok(updatedClient);
     }
 
     @GetMapping("/sorted")
     @ResponseStatus(HttpStatus.OK)
     public List<Client> getAllClients() {
-        return clentService.getAllClientsSortedByCreationDate();
+
+        return clientService.getAllClientsSortedByCreationDate();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Client> getClientById(@PathVariable Long id) {
-        Client client = clentService.getClientById(id);
+        Client client = clientService.getClientById(id);
         return ResponseEntity.ok(client);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteClient(@PathVariable Long id) {
         try {
-            clentService.deleteClientById(id);
+            clientService.deleteClientById(id);
             return ResponseEntity.ok().build();
         } catch (NotFoundException e) {
             return ResponseEntity.notFound().build();
@@ -60,7 +55,7 @@ public class ClientController {
 
     @DeleteMapping("/batch")
     public ResponseEntity<Void> deleteMultipleClients(@RequestParam List<Long> ids) {
-        clentService.deleteMultipleClientsByIds(ids);
+        clientService.deleteMultipleClientsByIds(ids);
         return ResponseEntity.ok().build();
     }
 
@@ -68,12 +63,12 @@ public class ClientController {
     public List<Client> searchClientsByKeyword(
             @RequestParam String keyword
     ) {
-        return clentService.searchClientsByUsername(keyword);
+        return clientService.searchClientsByUsername(keyword);
     }
 
     @GetMapping("/count")
     public long countClients() {
-        return clentService.countClients();
+        return clientService.countClients();
     }
 
 }

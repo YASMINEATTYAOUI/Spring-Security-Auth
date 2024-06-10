@@ -2,18 +2,15 @@ package com.example.ooredooshop.models;
 
 import javax.persistence.*;
 
-import com.example.ooredooshop.enumeration.Permission;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedBy;
+
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+
 
 @Data
 @AllArgsConstructor
@@ -23,12 +20,14 @@ public class Privilege {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Enumerated(EnumType.STRING)
-    private Permission name;
-    private String description;
+    private String name;
+    private Boolean active;
     @CreatedDate
     private Date creationDate;
     @LastModifiedDate
     private Date lastModifiedDate;
 
+    public Boolean isActive() {
+        return active;
+    }
     }
