@@ -29,8 +29,9 @@ public class UserController {
 
 
     @GetMapping("/current-user")
-    public Object getCurrentUser(Authentication authentication) {
-        return userService.getCurrentUser(authentication);
+    public UserInfo getCurrentUser(Authentication authentication) {
+        String username = authentication.getName();
+        return userService.getUserByUsername(username);
     }
 
 

@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface UserService {
 
-    Object getCurrentUser(Authentication authentication);
+    public UserInfo getUserByUsername(String username);
     UserInfo saveUser(UserInfo user);
     public UserInfo toggleUserStatus(Long userId);
     UserInfo getUser();

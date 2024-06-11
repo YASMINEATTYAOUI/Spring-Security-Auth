@@ -48,10 +48,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 
     @Override
-    public Object getCurrentUser(Authentication authentication) {
-        return authentication.getPrincipal();
+    public UserInfo getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
-
     @Override
     public UserInfo saveUser(UserInfo user) {
         try {
