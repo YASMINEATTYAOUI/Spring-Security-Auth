@@ -9,7 +9,8 @@ import java.util.List;
 
 public interface UserService {
 
-    public UserInfo getUserByUsername(String username);
+    UserInfo getUserByUsername(String username);
+    //void updatePassword(String username, String newPassword);
     UserInfo saveUser(UserInfo user);
     public UserInfo toggleUserStatus(Long userId);
     UserInfo getUser();

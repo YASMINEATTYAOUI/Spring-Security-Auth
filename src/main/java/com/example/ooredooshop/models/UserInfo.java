@@ -38,16 +38,26 @@ public class UserInfo implements Serializable {
     @Lob
     @Column(columnDefinition = "MEDIUMBLOB")
     private String image;
+
+    @Column(nullable = false)
     private String fullName;
+
+    @Column(unique = true, nullable = false)
     private String email;
+    @Column(nullable = false)
     private Integer phoneNumber;
+    @Column(nullable = false)
     private String password;
+
     private Boolean status;
     @CreatedDate
     private Date creationDate;
     @LastModifiedDate
     private Date lastModifiedDate;
 
+
+    @OneToOne (mappedBy = "user")
+    private ForgotPassword forgotPassword;
 
     @ManyToOne
     @JoinColumn(name = "roleId")

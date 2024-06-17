@@ -6,10 +6,9 @@ import com.example.ooredooshop.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,6 +25,8 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    private JavaMailSender mailSender;
 
 
     @GetMapping("/current-user")
@@ -33,7 +34,6 @@ public class UserController {
         String username = authentication.getName();
         return userService.getUserByUsername(username);
     }
-
 
 
     @PostMapping(value = "/save")

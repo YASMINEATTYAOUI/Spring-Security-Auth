@@ -42,6 +42,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
 
+    //private PasswordResetTokenRepository tokenRepository;
     private final PasswordEncoder passwordEncoder;
 
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
@@ -49,8 +50,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserInfo getUserByUsername(String username) {
+
         return userRepository.findByUsername(username);
     }
+/*
+    public void updatePassword(String email, String newPassword) {
+        UserInfo user = userRepository.findByEmail(email);
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+    }
+
+ */
+
     @Override
     public UserInfo saveUser(UserInfo user) {
         try {

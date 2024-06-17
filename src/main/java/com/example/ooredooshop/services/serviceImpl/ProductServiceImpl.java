@@ -1,6 +1,5 @@
 package com.example.ooredooshop.services.serviceImpl;
 
-import com.example.ooredooshop.dtos.ProductDto;
 import com.example.ooredooshop.exceptions.NotFoundException;
 import com.example.ooredooshop.models.Brand;
 import com.example.ooredooshop.models.Category;

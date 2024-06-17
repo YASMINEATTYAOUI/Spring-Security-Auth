@@ -49,6 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
         //http.authorizeRequests().antMatchers("/api/login/**","/token/refresh").permitAll();
         //http.authorizeRequests().antMatchers("/api/users").hasAnyAuthority("ADMIN");
+        http.authorizeRequests().antMatchers("/api/forgot-pwd/**").permitAll();
         http.authorizeRequests().anyRequest().authenticated();
         //http.authorizeRequests().anyRequest().permitAll(); //set permissions roles here
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);

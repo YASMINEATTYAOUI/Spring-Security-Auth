@@ -1,16 +1,13 @@
 package com.example.ooredooshop.controller;
 
-import com.example.ooredooshop.dtos.ProductDto;
 import com.example.ooredooshop.exceptions.NotFoundException;
 import com.example.ooredooshop.models.Brand;
 import com.example.ooredooshop.models.Category;
-import com.example.ooredooshop.models.Package;
 import com.example.ooredooshop.models.Product;
 import com.example.ooredooshop.repositories.BrandRepository;
 import com.example.ooredooshop.repositories.CategoryRepository;
 import com.example.ooredooshop.services.ProductService;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
