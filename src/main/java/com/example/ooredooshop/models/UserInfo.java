@@ -56,8 +56,8 @@ public class UserInfo implements Serializable {
     private Date lastModifiedDate;
 
 
-    @OneToOne (mappedBy = "user")
-    private ForgotPassword forgotPassword;
+    //@OneToOne (mappedBy = "user")
+    //private ForgotPassword forgotPassword;
 
     @ManyToOne
     @JoinColumn(name = "roleId")

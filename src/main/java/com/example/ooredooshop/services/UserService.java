@@ -10,7 +10,7 @@ import java.util.List;
 public interface UserService {
 
     UserInfo getUserByUsername(String username);
-    //void updatePassword(String username, String newPassword);
+    void updatePassword(String email,String newPassword);
     UserInfo saveUser(UserInfo user);
     public UserInfo toggleUserStatus(Long userId);
     UserInfo getUser();

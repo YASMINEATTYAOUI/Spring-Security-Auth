@@ -27,6 +27,9 @@ public class ForgotPassword {
     @Column(nullable = false)
     private Date expirationTime;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private UserInfo user;
+    //@OneToOne
+    //private UserInfo user;
 }

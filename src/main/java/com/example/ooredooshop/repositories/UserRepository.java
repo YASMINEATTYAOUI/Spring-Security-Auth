@@ -17,9 +17,11 @@ public interface UserRepository extends JpaRepository<UserInfo, Long> {
 
    Optional<UserInfo> findByEmail(String email);
    UserInfo findFirstById(Long id);
+   /*
    @Transactional
    @Modifying
    @Query("update UserInfo u set u.password = ?2 where u.email = ?1")
    void updatePassword(String email, String password);
+*/
 
 }
