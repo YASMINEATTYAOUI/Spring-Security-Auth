@@ -1,5 +1,6 @@
 package com.example.ooredooshop.controller;
 
+import com.example.ooredooshop.models.ChangePassword;
 import com.example.ooredooshop.models.UserInfo;
 
 import com.example.ooredooshop.services.UserService;
@@ -10,6 +11,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,6 +26,8 @@ public class UserController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Autowired
     private JavaMailSender mailSender;
@@ -116,6 +120,18 @@ public class UserController {
         }
     }
 
+    @PostMapping("/change-password/{email}")
+    public ResponseEntity<?> resetPassword(@RequestBody ChangePassword changePassword,
+                                           @PathVariable String email) {
+        //logger.info("changing password for email: {}", email);
+        if (!changePassword.getPassword().equals(changePassword.getConfirmPassword())) {
+            return ResponseEntity.badRequest().body("Passwords do not match");
+        }
+        String encodedPassword = passwordEncoder.encode(changePassword.getPassword());
+        userService.updatePassword(email, encodedPassword);
+        //logger.info("Password changed for email: {}", email);
+        return ResponseEntity.ok("Password has been changed!");
+    }
 
     @GetMapping("/count")
     public long countUsers(){
