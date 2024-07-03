@@ -1,6 +1,7 @@
 package com.example.ooredooshop.services.serviceImpl;
 
 import com.example.ooredooshop.exceptions.NotFoundException;
+import com.example.ooredooshop.models.Privilege;
 import com.example.ooredooshop.models.UserRole;
 import com.example.ooredooshop.repositories.RoleRepository;
 import com.example.ooredooshop.services.RoleService;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -46,6 +48,12 @@ public class RoleServiceImpl implements RoleService {
             existingRole.setActive(false); // Default to false if not provided
         }
         existingRole.setLastModifiedDate(new Date());
+
+        // Update the privileges
+        Set<Privilege> updatedPrivileges = updatedRole.getPrivileges();
+        if (updatedPrivileges != null) {
+            existingRole.setPrivileges(updatedPrivileges);
+        }
 
         // Save the updated role
         return roleRepository.save(existingRole);

@@ -29,10 +29,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -159,5 +156,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public long countUsers() {
         return userRepository.count();
+    }
+
+
+    @Override
+    public UserInfo getUserById(Long userId) {
+        Optional<UserInfo> userOptional = userRepository.findById(userId);
+        if (userOptional.isPresent()) {
+            return userOptional.get();
+        } else {
+            throw new RuntimeException("User not found with ID: " + userId);
+        }
     }
 }

@@ -3,6 +3,7 @@ package com.example.ooredooshop.controller;
 import com.example.ooredooshop.exceptions.NotFoundException;
 import com.example.ooredooshop.models.Brand;
 import com.example.ooredooshop.models.Category;
+import com.example.ooredooshop.repositories.BrandRepository;
 import com.example.ooredooshop.services.BrandService;
 import lombok.AllArgsConstructor;
 
@@ -21,6 +22,7 @@ import java.util.List;
 @RequestMapping("/api/brands")
 public class BrandController {
 
+    private final BrandRepository brandRepository;
     private final BrandService brandService;
 
     @PostMapping
@@ -35,28 +37,23 @@ public class BrandController {
         return new ResponseEntity<>(brand, HttpStatus.CREATED);
     }
 
-    @PutMapping
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Brand> updateBrand(@RequestParam("file") MultipartFile file,
-                                           @RequestParam("name") String name, @RequestParam("description") String description) throws IOException {
-        Brand brand = new Brand();
-        brand.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
-        brand.setName(name);
-        brand.setDescription(description);
-        brandService.save(brand);
-        return new ResponseEntity<>(brand, HttpStatus.OK);
-    }
+@PutMapping("/{brandId}")
+@ResponseStatus(HttpStatus.OK)
+public Brand updateBrand(@PathVariable Long brandId,
+                         @RequestParam(value = "file", required = false) MultipartFile file,
+                         @RequestParam("name") String name,
+                         @RequestParam("description") String description) throws IOException {
+    Brand existingBrand = brandRepository.findById(brandId)
+            .orElseThrow(() -> new RuntimeException("Brand not found"));
 
-    @PutMapping("/{brandId}")
-    @ResponseStatus(HttpStatus.OK)
-    public Brand updateBrand(@PathVariable Long brandId,@RequestParam("file") MultipartFile file,
-                             @RequestParam("name") String name, @RequestParam("description") String description) throws IOException {
-        Brand updatedBrand = new Brand();
-        updatedBrand.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
-        updatedBrand.setName(name);
-        updatedBrand.setDescription(description);
-        return brandService.updateBrand(brandId, updatedBrand);
+    if (file != null && !file.isEmpty()) {
+        existingBrand.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
     }
+    existingBrand.setName(name);
+    existingBrand.setDescription(description);
+    return brandService.updateBrand(existingBrand);
+}
+
     @GetMapping("/sorted")
     @ResponseStatus(HttpStatus.OK)
     public List<Brand> getAllBrands() {

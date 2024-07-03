@@ -16,5 +16,6 @@ public interface UserService {
     UserInfo getUser();
     List<UserInfo> getAllUser();
     long countUsers();
+    UserInfo getUserById(Long userId);
 
 }

@@ -102,6 +102,21 @@ public class UserController {
         }
     }
 
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserInfo> getUserById(@PathVariable Long userId) {
+        try {
+            UserInfo user = userService.getUserById(userId);
+            if (user != null) {
+                return ResponseEntity.ok(user);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     @GetMapping("/count")
     public long countUsers(){
         return userService.countUsers();

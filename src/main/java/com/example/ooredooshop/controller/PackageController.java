@@ -3,6 +3,7 @@ package com.example.ooredooshop.controller;
 import com.example.ooredooshop.exceptions.NotFoundException;
 import com.example.ooredooshop.models.Brand;
 import com.example.ooredooshop.models.Product;
+import com.example.ooredooshop.repositories.PackageRepository;
 import com.example.ooredooshop.repositories.ProductRepository;
 import com.example.ooredooshop.services.PackageService;
 
@@ -24,7 +25,7 @@ import java.util.Set;
 @AllArgsConstructor
 @RequestMapping("/api/packages")
 public class PackageController {
-
+    private final PackageRepository packageRepository;
     private final PackageService packageService;
     private final ProductRepository productRepository;
 
@@ -55,6 +56,9 @@ public class PackageController {
         return new ResponseEntity<>(aPackage, HttpStatus.CREATED);
     }
 
+
+
+/*
     @PutMapping("/{packageId}")
     @ResponseStatus(HttpStatus.OK)
     public Package updatePackage(@PathVariable Long packageId,
@@ -74,6 +78,43 @@ public class PackageController {
         updatedPackage.setSoldQuantity(soldQuantity);
         updatedPackage.setAvailableQuantity(availableQuantity);
         return packageService.updatePackage(packageId, updatedPackage);
+    }
+*/
+
+    @PutMapping("/{packageId}")
+    @ResponseStatus(HttpStatus.OK)
+    public Package updatePackage(@PathVariable Long packageId,
+                                 @RequestParam(value = "file", required = false) MultipartFile file,
+                                 @RequestParam("reference") String reference,
+                                 @RequestParam("description") String description,
+                                 @RequestParam("nbProduct") Integer nbProduct,
+                                 @RequestParam("price") Float price,
+                                 @RequestParam("soldQuantity") Integer soldQuantity,
+                                 @RequestParam("availableQuantity") Integer availableQuantity,
+                                 @RequestParam("products") Set<Long> productIds ) throws IOException {
+
+        Package existingPackage = packageRepository.findById(packageId)
+                .orElseThrow(() -> new RuntimeException("Package not found"));
+
+        if (file != null) {
+            existingPackage.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
+        }
+
+        existingPackage.setReference(reference);
+        existingPackage.setDescription(description);
+        existingPackage.setNbProduct(nbProduct);
+        existingPackage.setPrice(price);
+        existingPackage.setSoldQuantity(soldQuantity);
+        existingPackage.setAvailableQuantity(availableQuantity);
+        Set<Product> products = new HashSet<>();
+        for (Long productId : productIds) {
+            Product product = productRepository.findById(productId)
+                    .orElseThrow(() -> new RuntimeException("Product with ID " + productId + " not found"));
+            products.add(product);
+        }
+        existingPackage.setProducts(products);
+
+        return packageService.updatePackage(existingPackage);
     }
 
     @PutMapping

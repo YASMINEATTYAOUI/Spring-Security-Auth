@@ -6,6 +6,7 @@ import com.example.ooredooshop.models.Category;
 import com.example.ooredooshop.models.Product;
 import com.example.ooredooshop.repositories.BrandRepository;
 import com.example.ooredooshop.repositories.CategoryRepository;
+import com.example.ooredooshop.repositories.ProductRepository;
 import com.example.ooredooshop.services.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +26,7 @@ import java.util.List;
 public class ProductController {
     private final ProductService productService;
     private final BrandRepository brandRepository;
+    private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
 
 
@@ -55,50 +57,38 @@ public class ProductController {
         return productService.createProduct(newProduct);
     }
 
-    /*
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping
-    public ResponseEntity<Product> createProduct(
-            @RequestParam("file") MultipartFile file,
-            @RequestParam("reference") String reference,
-            @RequestParam("description") String description,
-            @RequestParam("price") Float price,
-            @RequestParam("soldQuantity") Integer soldQuantity,
-            @RequestParam("availableQuantity") Integer availableQuantity,
-            @RequestParam("brand") Long brandId,
-            @RequestParam("category") Long categoryId
-    ) {
-        try {
-            Product product = productService.createProduct(file, reference, description, price, soldQuantity, availableQuantity, brandId, categoryId);
-            return ResponseEntity.ok(product);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
-        }
-    }
-
-    @PutMapping
-    @ResponseStatus(HttpStatus.OK)
-    public Product updateProduct(@RequestBody Product updatedProduct) {
-        return productService.updateProduct(updatedProduct);
-    }
-*/
     @PutMapping("/{productId}")
     @ResponseStatus(HttpStatus.OK)
     public Product updateProduct(@PathVariable Long productId,
-                                 @RequestParam("file") MultipartFile file,
+                                 @RequestParam(value = "file", required = false) MultipartFile file,
                                  @RequestParam("reference") String reference,
                                  @RequestParam("description") String description,
                                  @RequestParam("price") Float price,
-                                 @RequestParam("soldQuantity")Integer soldQuantity,
-                                 @RequestParam("availableQuantity")Integer availableQuantity) throws IOException {
-        Product updatedProduct = new Product();
-        updatedProduct.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
-        updatedProduct.setReference(reference);
-        updatedProduct.setDescription(description);
-        updatedProduct.setPrice(price);
-        updatedProduct.setSoldQuantity(soldQuantity);
-        updatedProduct.setAvailableQuantity(availableQuantity);
-        return productService.updateProduct(productId, updatedProduct);
+                                 @RequestParam("soldQuantity") Integer soldQuantity,
+                                 @RequestParam("availableQuantity") Integer availableQuantity,
+                                 @RequestParam("brand") Long brandId,
+                                 @RequestParam("category") Long categoryId) throws IOException {
+        Product existingProduct = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        if (file != null) {
+            existingProduct.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
+        }
+        existingProduct.setReference(reference);
+        existingProduct.setDescription(description);
+        existingProduct.setPrice(price);
+        existingProduct.setSoldQuantity(soldQuantity);
+        existingProduct.setAvailableQuantity(availableQuantity);
+
+        Brand brand = brandRepository.findById(brandId)
+                .orElseThrow(() -> new RuntimeException("Brand not found"));
+        Category category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new RuntimeException("Category not found"));
+
+        existingProduct.setBrand(brand);
+        existingProduct.setCategory(category);
+
+        return productService.updateProduct(existingProduct);
     }
 
     @GetMapping("/sorted")
